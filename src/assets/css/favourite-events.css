@@ -1,0 +1,117 @@
+.right-side-content {
+    padding-left: 35px;
+    margin-bottom: 20px;
+}
+
+.favourite-events-add .card.position-relative {
+    background: #1c1c1e;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border: solid 1px #414141;
+}
+
+.favourite-events-add img.card-img-top {
+    height: 160px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.favourite-events-add .col-md-4.col-sm-6 {
+    padding-right: 0px;
+    padding-left: 10px;
+}
+
+.favourite-events-add .container {
+    padding-left: 0px;
+}
+
+.favourite-events-add span.card-price {
+    position: absolute;
+    top: 188px;
+    right: 24px;
+    background: #f9037a;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    width: 55px;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.favourite-events-add span.contest-add {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.favourite-events-add .card-body {
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.favourite-events-add h5.card-title {
+    font-size: 18px;
+    width: 80%;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.favourite-events-add p.inner-price-add {
+    font-weight: 600;
+}
+
+.favourite-events-add .remaining-tab p {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.favourite-events-add button.btn.btn-custom {
+    background: #f9037a;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #fff;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.favourite-events-add i.bi.bi-heart-fill {
+    color: #ffba23;
+    border: solid 1px #ffba23;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.favourite-events-add .row {
+    row-gap: 11px;
+}
+
+.favourite-events-add .exclusive-tab button {
+    border: solid 1px #f9037a;
+    background: #2a2d33;
+    color: #fff;
+    border-radius: 4px;
+    padding: 3px 11px;
+    font-size: 14px;
+}
+
+.favourite-events-add i.bi.bi-ticket-perforated {
+    font-size: 19px;
+    margin-top: 2px;
+}

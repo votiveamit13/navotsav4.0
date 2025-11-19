@@ -1,0 +1,267 @@
+.event-details-add ul.event-list-add {
+    padding-left: 0px;
+}
+
+.about-section .about-card {
+    background: #4a2dbd;
+    color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    margin-top: -120px;
+    box-shadow: 3px 5px 11px #0000004d;
+}
+
+.about-section .about-card h6 {
+    font-size: 24px;
+    padding-bottom: 11px;
+}
+
+.about-section .about-card h2 {
+    font-weight: 600;
+    font-size: 44px;
+    width: 50%;
+    margin: auto;
+    padding-bottom: 35px;
+}
+
+.about-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 0;
+    padding: 0px 30px;
+}
+
+.about-section .stats-box {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 75%;
+    margin: auto;
+    margin-top: -58px;
+}
+
+.about-section .stats-box h4 {
+    color: #ec6624;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 35px;
+}
+
+.about-section .stats-box p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.about-section p.second-text-add {
+    padding-bottom: 68px;
+}
+
+.feature-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.feature-section h2 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 42px;
+    color: #1c1c1e;
+}
+
+.feature-section p {
+    color: #1c1c1e;
+    font-size: 18px;
+    font-weight: 400;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 60px;
+}
+
+.feature-section .feature-box {
+    background: linear-gradient(135deg, #ff007a, #a60084);
+    color: #fff;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 36px;
+}
+
+.feature-section .feature-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #1c1c1e;
+}
+
+.feature-winnings-inner {
+    justify-content: center;
+    margin: auto;
+}
+
+.feature-section {
+    padding: 60px 20px;
+    text-align: center;
+    background: url("../images/make-bg.png");
+    margin-top: 68px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.feature-winnings-inner .feature-box img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.feature-fifty-add {
+    background: url(./images/fifty-icon-text.png) no-repeat center center / cover;
+    background-position: bottom;
+    background-size: 100% 60%;
+}
+
+section.biggest-jackpots-await {
+    background: url('../images/biggest-jackpots-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 115px 0px;
+    text-align: center;
+    margin-top: 11px;
+}
+
+.biggest-jackpots-await h1 {
+    color: #fff;
+    font-size: 42px;
+}
+
+.biggest-jackpots-await p {
+    font-size: 18px;
+    color: #fff;
+    width: 60%;
+    margin: auto;
+    padding: 15px 0px;
+    font-weight: 400;
+}
+
+.biggest-jackpots-await button {
+    background: #f9037a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #fff;
+    width: 18%;
+    margin-top: 15px;
+}
+
+
+
+@media only screen and (max-width: 767px) {
+
+    .event-details-add {
+        height: 211px !important;
+        display: flex;
+    }
+
+    .about-section .about-card {
+        padding: 15px;
+        margin-top: 30px;
+    }
+
+    .event-details-add h1 {
+        margin-top: 0px !important;
+    }
+
+    .about-section .about-card h2 {
+        font-size: 30px;
+        width: 100%;
+        margin: auto;
+        padding-bottom: 15px;
+    }
+
+    .about-card p {
+        padding: 0px 0px;
+    }
+
+    .about-section .stats-box {
+        padding: 20px 20px;
+        width: 100%;
+        margin-top: -58px;
+    }
+
+    .feature-section {
+        padding: 35px 20px;
+        background: url("./images/makes-bg.png");
+        margin-top: 0px;
+    }
+
+    .about-section .stats-box h4 {
+        font-size: 26px;
+    }
+
+    .about-section .stats-box p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .about-section .about-card h6 {
+        padding-top: 5px;
+    }
+
+    .feature-section h2 {
+        margin-bottom: 10px;
+        font-size: 32px;
+    }
+
+    .feature-section p {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .feature-section .feature-title {
+        font-size: 16px;
+    }
+
+    section.biggest-jackpots-await {
+        padding: 40px 0px;
+        margin-top: 11px;
+    }
+
+    .biggest-jackpots-await h1 {
+        color: #fff;
+        font-size: 33px;
+    }
+
+    .biggest-jackpots-await p {
+        width: 100%;
+        margin: auto;
+        padding: 0px 0px;
+    }
+
+    .biggest-jackpots-await button {
+        width: 60%;
+        font-size: 15px;
+    }
+
+    .feature-section .feature-box {
+        width: 80px;
+        height: 80px;
+    }
+
+    .feature-winnings-inner .feature-box img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+
+
+
+}

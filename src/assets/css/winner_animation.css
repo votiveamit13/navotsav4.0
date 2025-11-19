@@ -1,0 +1,70 @@
+.winner-animation {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, #00ff99, #00c853, #00ff99);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerGreen 2s linear infinite, pulseGlowGreen 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmerGreen {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 200%;
+    }
+}
+
+@keyframes pulseGlowGreen {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px #00e676, 0 0 20px #00c853, 0 0 30px #00bfa5;
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 20px #69f0ae, 0 0 30px #00e676, 0 0 40px #00ff99;
+        transform: scale(1.15);
+    }
+}
+
+.winner-icon {
+    width: 32px;
+    height: 32px;
+    animation: bounceIcon 1.6s ease-in-out infinite;
+}
+
+@keyframes bounceIcon {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.bounce {
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}

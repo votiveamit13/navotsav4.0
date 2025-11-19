@@ -1,0 +1,1502 @@
+body {
+    font-family: "Jost", sans-serif;
+}
+
+div#navbarNav a.nav-link {
+    color: #1c1c1e;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.login-btn-add {
+    background: #ee127b;
+    border: none;
+    border-radius: 50px;
+    font-family: jost;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    padding: 6px 23px !important;
+    margin-left: 0px !important;
+}
+
+.login-btn-add:hover {
+    background: #ee127b;
+}
+
+.login-btn-add i.bi.bi-person-plus {
+    font-size: 20px;
+}
+
+.right-side-login {
+    align-items: center;
+    gap: 15px;
+}
+
+.right-side-login i.bi.bi-bag {
+    color: #000;
+    font-size: 18px;
+}
+
+ul.navbar-nav.mb-2.mb-lg-0.gap-lg-3 {
+    width: 83%;
+    justify-content: center;
+}
+
+nav.navbar.navbar-expand-lg {
+    background: #faf6f4;
+    padding: 0px;
+}
+
+nav.navbar.navbar-expand-lg a.navbar-brand.fw-bold img {
+    width: 90px;
+}
+
+.our-next-hero .search-box .form-select:focus {
+    border-color: #f9037a !important;
+}
+
+nav.navbar.navbar-expand-lg a.nav-link.active {
+    color: #f9037a !important;
+}
+
+nav.navbar.navbar-expand-lg a.nav-link:hover {
+    color: #f9037a !important;
+}
+
+/* Hero Background */
+.our-next-hero {
+    background: url("./images/our-banner.png") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    height: 600px;
+}
+
+.our-next-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.our-next-hero .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.our-next-hero .search-box {
+    background: #fff;
+    border-radius: 50px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+    width: 81%;
+    margin: auto;
+}
+
+.our-next-hero .search-box input,
+.search-box select {
+    border: solid 1px #f9037a;
+    outline: none;
+    box-shadow: none !important;
+    padding: 10px 15px;
+    border-radius: 30px;
+    flex: 1;
+    min-width: 150px;
+    color: #1c1c1e;
+}
+
+.our-next-hero input.form-control::placeholder {
+    color: #1c1c1e;
+}
+
+.our-next-hero .search-box button {
+    border-radius: 30px;
+    padding: 10px 24px;
+    background: #1c1c1e;
+}
+
+section.our-next-hero .hero-content p {
+    font-weight: 600;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+section.our-next-hero .hero-content h1 {
+    font-size: 50px;
+}
+
+.trusted-winners .feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-right: 12px;
+    color: #743289;
+}
+
+.trusted-winners .feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.trusted-winners .feature-item h6 {
+    margin: 0;
+    font-weight: 600;
+    color: #1c1c1e;
+}
+
+.trusted-winners .btn-play {
+    border-radius: 30px;
+    padding: 10px 35px;
+    font-weight: 500;
+    background: #1c1c1e;
+}
+
+.trusted-winners-left i.bi.bi-trophy {
+    color: #743289;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+.trusted-winners {
+    padding: 60px 0px;
+}
+
+.trusted-winners span.fifty-text-add {
+    color: #f9037a;
+    background: url("./images/fifty-icon-text.png") no-repeat center center/cover;
+    background-position: bottom;
+    background-size: 100%;
+}
+
+.trusted-winners-left p {
+    color: #1c1c1e;
+    padding-bottom: 16px;
+    font-weight: 600;
+    padding-top: 16px;
+}
+
+.trusted-winners-left h2 {
+    font-size: 42px;
+    color: #1c1c1e;
+}
+
+.trusted-winners-left p.text-simply-add.mb-4 {
+    font-weight: 400;
+    font-size: 16px;
+    padding-top: 15px;
+}
+
+.trusted-winners .feature-item small.text-muted {
+    color: #1c1c1e !important;
+}
+
+.trusted-winners .feature-item .pin::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 22px;
+    background: #6a1b9a;
+}
+
+.trusted-winners .feature-item .pin {
+    position: relative;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+i.bi.bi-check-circle-fill {
+    color: #6a1b9a;
+}
+
+section.winning-numbers {
+    background: #0f0232 url("./images/winning-img.png") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    background-position: right;
+}
+
+.winning-numbers .card {
+    background: #1c1c1e;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    border: solid 1px #414141;
+}
+
+.winning-numbers .card img {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.winning-numbers .badge-featured {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #f9037a;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+i.bi.bi-arrow-right {
+    padding-left: 5px;
+}
+
+.winning-numbers .card-price {
+    position: absolute;
+    top: 218px;
+    right: 38px;
+    background: #f9037a;
+    color: #fff;
+    /* padding: 8px 14px; */
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    width: 65px;
+    height: 65px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.winning-numbers span.contest-add {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.winning-numbers .btn-custom {
+    background: #f9037a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #fff;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.winning-numbers .btn-custom:hover {
+    background: #e6004f;
+}
+
+.winning-numbers .view-all-btn {
+    background: #fff;
+    color: #111;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 30px;
+    margin-top: 45px;
+}
+
+.winning-numbers .view-all-btn:hover {
+    background: #ddd;
+}
+
+.winning-numbers .section-title p {
+    font-size: 18px;
+}
+
+.winning-numbers .section-title h2 {
+    font-size: 42px;
+    font-family: "Jost";
+    padding-top: 15px;
+}
+
+.winning-numbers p.winning-numbers-text {
+    width: 61%;
+    margin: auto;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.winning-numbers .section-title i.bi.bi-trophy {
+    padding-right: 5px;
+}
+
+.exclusive-tab {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.exclusive-tab button {
+    border: solid 1px #f9037a;
+    background: #2a2d33;
+    color: #fff;
+    border-radius: 4px;
+    padding: 3px 11px;
+}
+
+.exclusive-tab i.bi.bi-heart {
+    color: #ffba23 !important;
+    border: solid 1px #ffba23 !important;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.exclusive-tab i.bi.bi-heart-fill {
+    color: #ffba23 !important;
+    border: solid 1px #ffba23;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.winning-numbers .card-body {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+
+.winning-numbers h5.card-title {
+    text-align: left;
+    width: 218px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticket-price-tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0px;
+    padding-bottom: 0px;
+    font-size: 14px;
+}
+
+.winning-numbers p.inner-price-add {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.remaining-tab {
+    display: flex;
+    justify-content: space-between;
+}
+
+.how-it-works {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-size: 42px;
+    color: #1c1c1e;
+}
+
+.how-it-works .step-box {
+    padding: 20px;
+    color: #000000;
+}
+
+.how-it-works .step-box i {
+    font-size: 40px;
+    color: #e6007e;
+    /* Pink color */
+    margin-bottom: 15px;
+}
+
+.how-it-works .step-title {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.how-it-works .arrow {
+    font-size: 28px;
+    color: #777;
+}
+
+.how-it-works .cta-box {
+    background: #f9037a2e;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 68%;
+    margin: auto;
+}
+
+.how-it-works .cta-box span {
+    font-weight: 500;
+    color: #1c1c1e;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.how-it-works .cta-box .btn {
+    background: #743289;
+    border: none;
+    border-radius: 50px;
+    padding: 11px 25px;
+    font-size: 14px;
+}
+
+.how-it-works .cta-box .btn:hover {
+    background: #922d92;
+}
+
+section.how-it-works p.mb-2 {
+    color: #1c1c1e;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.how-it-works i.bi.bi-trophy {
+    padding-right: 5px;
+}
+
+.how-it-works p.celebrate-text {
+    font-size: 18px;
+    width: 57%;
+    margin: auto;
+}
+
+.how-it-works p.small {
+    font-size: 16px;
+}
+
+.how-it-works h6 {
+    font-size: 16px;
+    padding-top: 20px;
+}
+
+.how-it-works h6 span {
+    color: #743289;
+}
+
+.winning-numbers .section-title h2 span {
+    background: url(./images/wining-bg-img.png) no-repeat center center / cover;
+    background-position: bottom;
+    background-size: 69% 60%;
+}
+
+.how-it-works i.bi.bi-person-check {
+    font-size: 22px;
+}
+
+.how-it-works .arrow img {
+    width: 125px;
+    margin-left: -28px;
+    margin-top: -25px;
+}
+
+.how-it-works h2 span {
+    background: url(./images/fifty-icon-text.png) no-repeat center center / cover;
+    background-position: bottom;
+    background-size: 100% 60%;
+}
+
+.fifty-play-footer {
+    background: url("./images/footer-bg-img.png");
+    color: #fff;
+    padding: 60px 0 20px;
+    font-size: 15px;
+    font-family: "Jost";
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.fifty-play-footer h5 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.fifty-play-footer a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    transition: 0.3s;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.fifty-play-footer a:hover {
+    color: #fff;
+    padding-left: 3px;
+}
+
+.fifty-play-footer .social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #fff;
+    background: #2d2d35;
+    border-radius: 50%;
+    transition: 0.3s;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.fifty-play-footer .social-icons a:hover {
+    background: #b931fc;
+    color: #fff;
+}
+
+.fifty-play-footer .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
+    padding-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.fifty-play-footer .footer-bottom a {
+    margin: 0 10px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.fifty-play-footer .footer-bottom a:hover {
+    color: #fff;
+}
+
+.inner-text-add {
+    display: flex;
+}
+
+.fifty-play-footer .footer-bottom .inner-text-add a {
+    font-size: 15px;
+    color: #fff;
+}
+
+.fifty-play-footer .social-icons {
+    display: flex;
+}
+
+.fifty-play-footer .social-icons a i {
+    color: #dd6da3;
+}
+
+.fifty-play-footer .footer-bottom p.mb-0 {
+    color: #fff;
+    font-size: 15px;
+}
+
+.fifty-play-footer p.simply-text-add {
+    font-size: 16px;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 85%;
+}
+
+.fifty-play-footer a:hover {
+    color: #dd6da3;
+}
+
+.fifty-play-footer i.bi.bi-chevron-right {
+    color: #dd6da3;
+    font-size: 13px;
+    padding-right: 4px;
+}
+
+.fifty-play-footer .social-icons a:hover {
+    background: #dd6da3;
+    color: #fff !important;
+}
+
+.fifty-play-footer .social-icons a:hover i {
+    color: #fff;
+}
+
+.fifty-play-footer .inner-get-in i {
+    color: #de8cb4;
+    font-size: 22px;
+}
+
+.fifty-play-footer .inner-get-in {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 22px;
+}
+
+.fifty-play-footer .inner-get-in p {
+    display: flex;
+    flex-direction: column;
+    color: lightgray;
+    margin-bottom: 0px;
+}
+
+.fifty-play-footer .inner-get-in span {
+    color: #fff;
+}
+
+.fifty-play-footer .footer-bottom .inner-text-add a:hover {
+    color: #dd6da3;
+}
+
+.inner-text-add div {
+    display: flex;
+    align-items: center;
+}
+
+#loginModal .modal-content {
+    border-radius: 20px;
+    padding: 20px 30px;
+    text-align: center;
+}
+
+#loginModal .modal-header {
+    border-bottom: none;
+}
+
+#loginModal .modal-body {
+    padding: 10px 20px;
+}
+
+#loginModal .login-btn {
+    background: #f9037a;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    width: 100%;
+    box-shadow: 0px 4px 12px rgba(249, 3, 122, 0.4);
+    transition: 0.3s ease;
+    margin-top: 15px;
+}
+
+#loginModal .login-btn:hover {
+    background: #d80268;
+}
+
+#loginModal .form-control {
+    border-radius: 0;
+    padding-left: 24px !important;
+    border: none;
+    border-bottom: solid 1px #999999;
+}
+
+#loginModal .input-icon {
+    position: absolute;
+    left: 0px;
+    top: 71%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+#loginModal .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#loginModal .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+#loginModal .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+#loginModal .social-login a {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#loginModal .social-login a:hover {
+    background: #f8f8f8;
+}
+
+#loginModal .social-login img {
+    width: 35px;
+    height: 35px;
+}
+
+#loginModal .modal-body img.mb-3 {
+    margin-top: -40px;
+}
+
+#loginModal .modal-body h4.fw-bold {
+    text-align: left;
+    font-family: "Jost";
+    color: #1c1c1e;
+    padding: 20px 0px;
+    font-size: 28px;
+    padding-top: 5px;
+}
+
+#loginModal .remember-forgot a.text-decoration-none {
+    color: #000;
+}
+
+#loginModal .form-group label {
+    text-align: left;
+    width: 100%;
+    font-size: 14px;
+    color: #858585;
+}
+
+#loginModal .form-control:focus {
+    box-shadow: none;
+}
+
+#loginModal a.fw-bold.text-decoration-none {
+    color: #743289;
+}
+
+#loginModal .modal-body p.mt-3.mb-1 {
+    padding-bottom: 5px;
+}
+
+#loginModal .modal-body input.form-control:hover {
+    border-bottom: solid 1px #007bff !important;
+}
+
+.btn-close:focus {
+    box-shadow: none !important;
+}
+
+#signupModal .modal-content {
+    border-radius: 20px;
+    padding: 10px 30px;
+}
+
+#signupModal .signup-title {
+    font-weight: 600;
+    margin-bottom: 0px;
+    text-align: left;
+    font-family: "Jost";
+    color: #1c1c1e;
+    padding: 10px 0px;
+    font-size: 28px;
+}
+
+#signupModal .btn-register {
+    background: #f9037a;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+#signupModal .btn-register:hover {
+    opacity: 0.9;
+}
+
+#signupModal .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+#signupModal .social-login a {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#signupModal .social-login a:hover {
+    background: #ddd;
+}
+
+#signupModal .login-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#signupModal .login-link a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #743289;
+}
+
+div#signupModal .modal-header {
+    border: none;
+}
+
+div#signupModal img.mb-2 {
+    margin-top: -30px;
+}
+
+div#signupModal span.input-group-text {
+    border: none;
+    background: none;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div#signupModal input.form-control {
+    border: none;
+    box-shadow: none;
+    margin-right: 10px;
+    padding-left: 8px;
+}
+
+div#signupModal label.form-label {
+    text-align: left;
+    width: 100%;
+    font-size: 14px;
+    color: #858585;
+}
+
+div#signupModal .input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    border-bottom: solid 1px #999999;
+}
+
+div#signupModal .modal-body {
+    padding-top: 0px;
+}
+
+div#signupModal .input-group:hover {
+    border-bottom: solid 1px #007bff;
+}
+
+#signupModal .social-login img {
+    width: 35px;
+    height: 35px;
+}
+
+#signupModal .social-login a {
+    background: none;
+    border: none;
+}
+
+div#signupModal input.form-control::placeholder {
+    color: #1c1c1e;
+}
+
+#loginModal .form-control::placeholder {
+    color: #1c1c1e;
+}
+
+i.bi.bi-eye {
+    font-size: 18px;
+}
+
+i.bi.bi-eye-slash {
+    font-size: 18px;
+}
+
+.email-tab i#toggleCustomPassword {
+    margin-top: 10px;
+    margin-right: 0px !important;
+}
+
+button.btn-close {
+    margin-right: -35px !important;
+    margin-top: -21px !important;
+}
+
+div#signupModal button.btn-close {
+    margin-right: -50px !important;
+    margin-top: -12px !important;
+}
+
+#signupModal .social-login a:hover {
+    background: none;
+}
+
+
+.carousel-indicators.thumbnails-wrapper img {
+    width: 100px !important;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+    display: flex;
+}
+
+div#navbarNav a.dropdown-item.text-center.fw-semibold.text-primary {
+    background: #743289;
+    color: #fff !important;
+    padding: 11px 0px;
+    margin-top: 10px;
+}
+
+div#navbarNav ul.dropdown-menu.dropdown-menu-end.show {
+    padding: 0px;
+}
+
+div#navbarNav hr.dropdown-divider {
+    margin-top: 0px;
+}
+
+div#navbarNav ul.dropdown-menu a.dropdown-item:hover {
+    background: #fecde4;
+    color: #000;
+}
+
+div#navbarNav li.dropdown-header.notification-text {
+    font-size: 15px;
+    font-weight: 500;
+    padding-bottom: 8px;
+}
+
+div#navbarNav span.badge.bg-danger.rounded-pill {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-side-login a.dropdown-item.d-flex.align-items-center.gap-2.py-2 span {
+    width: 310px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tbody.ads-table-tickets td.text-wrap {
+    line-height: 1.5;
+}
+
+.profile-section-add select.form-select {
+    padding-left: 18px;
+}
+
+.sidebar.left-sidebar .profile-info i.bi.bi-check-lg {
+    margin-top: 0px !important;
+}
+
+
+
+@media (min-width:768px) and (max-width:1024px) {
+   
+
+    .right-side-login {
+        padding-bottom: 20px;
+    }
+
+    .our-next-hero .search-box {
+        width: 100%;
+        padding: 15px;
+        margin: auto;
+    }
+
+    section.our-next-hero .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .our-next-hero {
+        height: 409px;
+    }
+
+    .our-next-hero .search-box input,
+    .search-box select {
+        padding: 8px 15px;
+    }
+
+    .our-next-hero .search-box button {
+        border-radius: 30px;
+        padding: 8px 24px;
+        background: #1c1c1e;
+    }
+
+    .trusted-winners-left h2 {
+        font-size: 35px;
+        color: #1c1c1e;
+        text-align: center;
+    }
+
+    .trusted-winners-left {
+        margin-top: 0px;
+    }
+
+    .trusted-winners-right img.img-fluid.rounded.shadow {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .winning-numbers .section-title h2 {
+        font-size: 35px;
+        font-family: "Jost";
+        padding-top: 15px;
+    }
+
+    section.winning-numbers .col-md-4.col-sm-6 {
+        width: 49.333333%;
+    }
+
+    .how-it-works p.celebrate-text {
+        width: 100%;
+    }
+
+    .how-it-works h2 {
+        font-size: 35px;
+        ;
+    }
+
+    .how-it-works {
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    section.how-it-works .col-md-3.step-box {
+        width: 27%;
+    }
+
+    .how-it-works .arrow img {
+        width: 99px;
+        margin-left: -35px;
+        margin-top: -50px;
+    }
+
+    section.how-it-works .col-md-3.step-box img {
+        width: 60px;
+    }
+
+    .trusted-winners-left p {
+        text-align: center;
+    }
+
+    .trusted-winners .btn-play {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .about-section .about-card h2 {
+        font-size: 30px !important;
+        width: 100% !important;
+        padding-bottom: 20px !important;
+    }
+
+    .about-section .stats-box {
+        width: 95% !important;
+    }
+
+    .feature-section {
+        margin-top: 40px !important;
+    }
+
+    .feature-section p {
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+
+    .feature-section .feature-box {
+        width: 85px !important;
+        height: 85px !important;
+    }
+
+    .feature-winnings-inner .feature-box img {
+        width: 40px !important;
+        height: 40px !important;
+        object-fit: cover;
+    }
+
+    .how-it-works .cta-box {
+        width: 85%;
+        margin: auto;
+    }
+
+    .biggest-jackpots-await button {
+        width: 35% !important;
+        margin-top: 15px;
+    }
+
+    .biggest-jackpots-await p {
+        width: 100% !important;
+    }
+
+
+}
+
+
+@media only screen and (max-width: 767px) {
+    .sidebar.left-sidebar {
+        width: 90%;
+        margin: auto;
+    }
+    .right-side-content h4 {
+        font-size: 32px;
+        width: 100% !important; 
+    }
+    .right-side-content {
+        padding-left: 20px !important;
+        margin-bottom: 20px;
+        padding-right: 20px;
+    }
+    #signupModal .btn-register {
+        padding: 9px;
+    }
+
+    #loginModal .login-btn {
+        padding: 9px;
+    }
+
+    #loginModal .modal-body {
+        padding: 10px 0px;
+    }
+
+    div#signupModal .modal-body {
+        padding-top: 0px;
+        padding: 0px;
+    }
+
+    div#signupModal button.btn-close {
+        margin-right: -35px !important;
+        margin-top: 0px !important;
+    }
+
+    button.navbar-toggler {
+        padding: 8px 8px;
+        box-shadow: none !important;
+    }
+
+    section.our-next-hero .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .our-next-hero .search-box {
+        display: block;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .our-next-hero .search-box input,
+    .search-box select {
+        margin-bottom: 10px;
+    }
+
+    .our-next-hero .search-box button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .our-next-hero {
+        height: 500px;
+    }
+
+    .trusted-winners {
+        padding: 30px 0px;
+        overflow: hidden;
+    }
+
+    .trusted-winners-left p {
+        text-align: center;
+    }
+
+    .trusted-winners-left h2 {
+        font-size: 28px;
+        color: #1c1c1e;
+        text-align: center;
+    }
+
+    .trusted-winners .btn-play {
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        margin: auto;
+        gap: 5px;
+    }
+
+    i.bi.bi-arrow-right.ms-1 {
+        margin-top: 2px;
+    }
+
+    .winning-numbers .section-title h2 {
+        font-size: 28px;
+        padding-top: 8px;
+    }
+
+    .winning-numbers p.winning-numbers-text {
+        width: 98%;
+        margin: auto;
+        margin-bottom: 0px;
+    }
+
+    .winning-numbers .view-all-btn {
+        width: 90%;
+    }
+
+    .how-it-works {
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    .how-it-works h2 {
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+
+    .how-it-works p.celebrate-text {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 0px !important;
+    }
+
+    .how-it-works .step-box img {
+        width: 16%;
+    }
+
+    .how-it-works .arrow {
+        display: none !important;
+    }
+
+    .how-it-works .cta-box {
+        width: 90%;
+        margin: auto;
+        margin-top: 0px !important;
+    }
+
+    .how-it-works .cta-box span {
+        gap: 8px;
+        text-align: left;
+    }
+
+    .how-it-works .cta-box .btn {
+        padding: 11px 25px;
+        font-size: 14px;
+        margin-left: 0px !important;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .fifty-play-footer .footer-bottom {
+        display: block;
+        text-align: left;
+    }
+
+    .inner-text-add {
+        display: block;
+    }
+
+    .fifty-play-footer {
+        background: url("./images/footer-bg-img.png");
+        padding: 40px 0 20px;
+    }
+
+    .fifty-play-footer .footer-bottom .inner-text-add a {
+        margin-left: 0px;
+        line-height: 2;
+        margin-top: 10px;
+    }
+
+    .right-side-login {
+        align-items: center;
+        gap: 15px;
+        padding-bottom: 14px;
+    }
+
+    .event-details-add h1 {
+        font-size: 35px !important;
+        margin-top: -50px !important;
+    }
+
+    .event-details-add ul.event-list-add {
+        justify-content: center !important;
+        padding-left: 0px;
+    }
+
+    .inner-content-win-right {
+        padding-right: 0px !important;
+    }
+
+    .inner-content-win-right h3.fw-bold {
+        font-size: 35px !important;
+
+    }
+
+    .inner-content-win-left {
+        height: 345px;
+        width: 95%;
+        margin: auto;
+    }
+
+    .row.inner-content-add-win {
+        padding-bottom: 30px !important;
+    }
+
+    .event-details-add {
+        height: 390px;
+        color: #fff;
+        object-fit: cover;
+    }
+
+    .event-testimonials {
+        margin-top: -160px;
+        padding-bottom: 100px;
+    }
+
+    .thumbnails-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .thumbnails-wrapper .thumbnail img {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 5px;
+        opacity: 0.6;
+        transition: 0.3s;
+    }
+
+    .thumbnails-wrapper .thumbnail.active img {
+        opacity: 1;
+        border: 2px solid #f9037a;
+    }
+
+    .thumbnails-wrapper {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+        padding: 5px;
+        justify-content: flex-center;
+    }
+
+    .thumbnails-wrapper .thumbnail {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        text-align: center;
+    }
+
+    .thumbnails-wrapper .thumbnail img {
+        width: 90px;
+        height: 60px;
+    }
+
+    div#carouselExampleIndicators .carousel-indicators .thumbnail img {
+        width: 177px !important;
+        height: 68px;
+        align-items: center;
+        margin: auto;
+        object-fit: cover;
+    }
+
+    .carousel-indicators .thumbnail img {
+        width: 84px !important;
+        height: 64px;
+    }
+
+    .event-testimonials .carousel-indicators {
+        position: static;
+        gap: 8px;
+        width: 82% !important;
+        margin-left: 0 !important;
+        margin: auto !important;
+    }
+
+    .event-testimonials button.carousel-control-next {
+        top: 400px !important;
+        right: 189px !important;
+    }
+
+    .event-testimonials button.carousel-control-prev {
+        top: 400px !important;
+        left: 175px !important;
+    }
+
+    .event-testimonials {
+        margin-top: -160px;
+        padding-bottom: 65px !important;
+    }
+
+    .event-testimonials .carousel-indicators button.thumbnail {
+        width: 100px;
+        height: auto !important;
+    }
+
+    .event-testimonials .carousel-item img {
+        height: 300px !important;
+        width: 100%;
+    }
+
+    .enter-now-chance {
+        display: block !important;
+    }
+
+
+    .MuiModal-root {
+        z-index: 2000 !important;
+    }
+
+
+}

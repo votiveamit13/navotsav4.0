@@ -1,0 +1,55 @@
+.checkout-summary-form h4 {
+    margin-bottom: 0px;
+    padding: 8px 0px;
+    font-size: 20px;
+}
+
+.page-header.banner-top-add h1 {
+    padding-top: 80px;
+}
+.page-header.banner-top-add{
+    align-items: flex-start;
+}
+.checkout-summary-form select.form-select {
+    padding: 10px 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.one-ticket-price {
+    padding: 10px;
+}
+
+.checkout-summary-form .card-body img {
+    width: 100%;
+}
+
+.checkout-summary-form .card-body {
+    padding: 25px;
+}
+
+.contest-text-add p {
+    color: #1C1C1E;
+    font-weight: 500;
+}
+
+.contest-text-add {
+    padding: 15px 0;
+    border-bottom: solid 1px #D7D7D7;
+    padding-bottom: 0px;
+}
+
+.contest-text-add span.contest-no {
+    color: #F9037A;
+}
+
+.description {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.description p {
+    color: #1C1C1E;
+}

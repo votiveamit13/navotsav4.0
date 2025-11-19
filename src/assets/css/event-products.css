@@ -1,0 +1,317 @@
+.page-header.banner-top-add {
+    background: linear-gradient(90deg, #ff007f, #743289);
+    color: #fff;
+    text-align: center;
+    height: 350px;
+    display: flex;
+    align-items: center;
+}
+
+.latest-events-inner-added i.bi.bi-heart-fill {
+    color: #ffba23 !important;
+    border: solid 1px #ffba23;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+.latest-events-inner-added h5.card-title {
+    width: 218px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.disabled-link-css {
+    pointer-events: none;
+    cursor: default;
+    color: #a0a0a0;
+    text-decoration: none;
+}
+
+.page-header.banner-top-add h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.page-header.banner-top-add .breadcrumb {
+    justify-content: center;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.page-header.banner-top-add .breadcrumb-item a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.page-header.banner-top-add .breadcrumb-item.active {
+    color: #f1f1f1;
+}
+
+.page-header.banner-top-add h1 {
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.page-header.banner-top-add .breadcrumb li {
+    font-size: 18px;
+}
+
+.banner-top-add .breadcrumb-item+.breadcrumb-item::before {
+    color: #fff;
+}
+
+.latest-events-add {
+    padding: 40px 0px;
+}
+
+.latest-events-add h1.text-center {
+    font-size: 42px;
+    font-family: "Jost";
+    padding-top: 15px;
+    font-weight: 600;
+}
+
+.latest-events-add p.celebrate-text {
+    font-size: 16px;
+    width: 54%;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.latest-events-add span.events-text {
+    background: url(./images/wining-bg-img.png) no-repeat center center / cover;
+    background-position: bottom;
+    background-size: 95% 60%;
+    padding-right: 6px;
+}
+
+.latest-events-inner-added .card {
+    background: #1c1c1e;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #fff;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);*/
+    padding: 25px;
+    border: solid 1px #414141;
+}
+
+.latest-events-inner-added .row {
+    margin-top: 30px;
+}
+
+.latest-events-inner-added button.btn.btn-custom {
+    background: #f9037a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #fff;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.latest-events-inner-added span.card-price {
+    position: absolute;
+    top: 218px;
+    right: 45px;
+    background: #f9037a;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 65px;
+    height: 65px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.latest-events-inner-added img.card-img-top {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.latest-events-inner-added .card-body {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+
+ ul.pagination {
+    margin-top: 45px;
+}
+
+ul.pagination i {
+    color: #626262;
+    font-size: 13px;
+}
+ li.page-item.active a {
+    background: #000000!important;
+    border: none;
+    padding: 9px 15px;
+    color: #fff !important;
+}
+
+ul.pagination a.page-link:hover {
+    background: #1C1C1C;
+    color: #fff !important;
+}
+ul.pagination a.page-link.active {
+    background: #1C1C1C;
+    color: #fff !important;
+    border: none;
+}
+ ul.pagination a {
+    margin: 0px 9px;
+    border-radius: 4px;
+    padding: 8px 15px;
+    box-shadow: none;
+}
+
+ a.page-link {
+    color: #313131;
+}
+
+.latest-events-inner-added span.contest-add {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+button.navbar-toggler {
+    padding: 8px 8px;
+    box-shadow: none !important;
+}
+p.MuiTypography-root.MuiTypography-body2.css-1nsv8f5-MuiTypography-root {
+    text-align: left;
+    color: #000;
+}
+
+.MuiBox-root.css-v2o9lh input{
+    border: solid 1px #4939C0;
+    border-radius: 12px;
+    width: 28px !important;
+    height: 20px !important;
+}
+p.MuiTypography-root.MuiTypography-body2.css-vbp1wi-MuiTypography-root {
+    color: #F9037A;
+    text-decoration: underline;
+    padding-top: 5px;
+    margin-bottom: 18px;
+}
+.MuiBox-root.css-v2o9lh .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
+    border-radius: 12px;
+}
+.MuiBox-root.css-v2o9lh {
+    gap: 26px;
+}
+.MuiBox-root.css-v2o9lh {
+    gap: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .MuiBox-root.css-dnmkqg {
+        width: 65%;
+    }
+    .MuiModal-root.css-1g04pbp-MuiModal-root .css-1txfmsw {
+        width: 65% !important;
+        padding: 32px;
+    }
+    .latest-events-add p.celebrate-text {
+        width: 85%;
+        margin: auto;
+    }
+
+    .latest-events-inner-added .col-md-4 {
+        flex: 0 0 auto;
+        width: 49.333333%;
+    }
+
+    .latest-events-inner-added .row {
+        margin-top: 11px;
+        justify-content: center;
+    }
+
+    .latest-events-add {
+        padding: 15px 0px;
+    }
+
+    .latest-events-add h1.text-center {
+        font-size: 38px;
+    }
+
+    button.navbar-toggler {
+        box-shadow: none !important;
+    }
+
+    nav.navbar.navbar-expand-lg {
+        padding: 0px;
+        padding-bottom: 20px;
+    }
+
+
+}
+
+
+@media only screen and (max-width: 767px) {
+   
+    .cart-add-tickets-inner {
+        margin-top: 0px !important;
+    }
+    .event-testimonials {
+        margin-top: 0px !important;
+    }
+    .page-header.banner-top-add h1 {
+        font-size: 35px;
+        font-weight: 600;
+    }
+
+    .page-header.banner-top-add {
+        height: 211px;
+    }
+
+    .latest-events-add {
+        padding: 15px 0px;
+    }
+    section.cart-tickets-add.checkout-summary-form .container {
+        padding-top: 0px !important;
+    }
+
+    .latest-events-add p.celebrate-text {
+        width: 100%;
+    }
+
+    .latest-events-inner-added .row {
+        margin-top: 0px;
+    }
+
+    .latest-events-inner-added ul.pagination a {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .latest-events-inner-added li.page-item.active a {
+        border: none;
+        padding: 9px 12px;
+    }
+
+    .latest-events-inner-added ul.pagination {
+        margin-top: 30px;
+    }
+
+    .latest-events-add h1.text-center {
+        font-size: 35px;
+    }
+
+
+
+}

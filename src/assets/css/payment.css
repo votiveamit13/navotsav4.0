@@ -1,0 +1,175 @@
+.checkout-add-page p.sign-in-text-add {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.checkout-add-page .cart-add-tickets-inner {
+    width: 100%;
+    margin: auto;
+    margin-top: -142px;
+}
+
+.checkout-add-page .card-body h6.mb-3 {
+    font-size: 22px;
+    color: #1c1c1c;
+    padding-top: 15px;
+    border-bottom: solid 1px #d7d7d7;
+    padding-bottom: 10px;
+    margin-bottom: 30px !important;
+}
+label.form-label {
+    color: #181a20;
+}
+form.contact-details input.form-control {
+    padding: 11px;
+    border-radius: 15px;
+    width: 55%;
+    box-shadow: none;
+}
+
+form.contact-details button.btn.btn-purple {
+    background: #ee127b;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    letter-spacing: unset;
+    padding: 9px 23px !important;
+    margin-left: 0px !important;
+    color: #fff;
+}
+
+.payment-options-add {
+    /* margin-top: 30px; */
+    border-radius: 15px;
+}
+
+.payment-options-add p.mt-2.small a {
+    color: #1c1c1e;
+    font-weight: 600;
+}
+
+.payment-options-add button.btn.btn-purple.px-4 {
+    background: #ee127b;
+    border: none;
+    border-radius: 50px;
+    font-weight: 500;
+    letter-spacing: unset;
+    padding: 9px 23px !important;
+    margin-left: 0px !important;
+    color: #fff;
+    margin: 13px 0px;
+}
+
+.payment-options-add li.nav-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: solid 1px #d7d7d7;
+    margin: 0 11px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 128px;
+    row-gap: 5px;
+}
+.payment-options-add li.nav-item button {
+    background: none !important;
+    color: #000 !important;
+    padding-top: 0px;
+}
+.checkout-add-page .card-header h4 {
+    margin-bottom: 0px;
+    padding: 8px 0;
+    font-size: 20px;
+}
+.payment-options-add li.nav-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.payment-options-add img.apple-pay-img {
+    width: 50px !important;
+    height: 50px !important;
+    margin-bottom: -15px !important;
+}
+
+.payment-options-add li.nav-item:hover {
+    border: solid 1px #f9037a;
+}
+.payment-options-add ul#pills-tab {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 40px !important;
+}
+.payment-options-add .nav-item {
+    position: relative; /* needed for absolute positioning of close-btn */
+}
+
+.payment-options-add .nav-item .close-btn {
+    position: absolute;
+    top: -14px;
+    right: calc(69% - 100px);
+    background-color: #ff0066;
+    color: white;
+    border-radius: 50px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.payment-options-add .nav-item:hover .close-btn {
+    opacity: 1;
+    visibility: visible;
+}
+.payment-options-add i.bi.bi-x-lg {
+    font-size: 13px;
+    margin-top: 2px;
+    margin-left: 1px;
+}
+.payment-options-add input.form-control {
+    padding: 11px;
+    border-radius: 15px;
+    width: 55%;
+    box-shadow: none;
+}
+
+.payment-options-add h4 {
+    font-size: 18px;
+    color: #1c1c1c;
+    padding-bottom: 10px;
+}
+
+form.enter-your-details-card {
+    padding-left: 15px;
+}
+.payment-options-add p.mt-2.small {
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.payment-options-add input.form-control::placeholder {
+    font-size: 14px;
+}
+
+.payment-options-add label.form-label {
+    color: #181a20;
+    margin-bottom: 1px;
+}
+
+.checkout-ticket-price .card-body {
+    padding-bottom: 15px;
+}
+
+.expiration-input {
+    width: 55%;
+}
