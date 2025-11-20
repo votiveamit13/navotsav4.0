@@ -48,9 +48,25 @@ const Header = () => {
           <NavLink className="navbar-brand fw-bold" to="/">
             <img src="/images/maan-logo.png" alt="Logo" width="80" />
           </NavLink>
+{/* <div className="marquee-container position-relative text-center">
+  <div className="marquee-track">
+    <span className="marquee-text">
+      <span className="red">NA</span>
+      <span className="green">VO</span>
+      <span className="yellow">TS</span>
+      <span className="blue">AV</span>
+      &nbsp;
+      <span className="gradient-text">
+        4.0 - A grand fusion of comedy, storytelling, music & electrifying DJ night
+      </span>
+    </span>
+  </div>
+</div> */}
+
+
 
           {/* Mobile Toggler */}
-          <button
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -60,7 +76,7 @@ const Header = () => {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </button> */}
 
           {/* Menu */}
           <div

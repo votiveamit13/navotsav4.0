@@ -27,14 +27,34 @@ export default function CheckoutPage() {
     const validate = () => {
         let newErrors = {};
 
+        // Name validation
         if (!form.name.trim()) newErrors.name = "Name is required";
-        if (!form.email.trim()) newErrors.email = "Email is required";
-        if (!form.mobile.trim()) newErrors.mobile = "Mobile number is required";
+
+        // Email validation
+        if (!form.email.trim()) {
+            newErrors.email = "Email is required";
+        } else {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(form.email)) {
+                newErrors.email = "Invalid email address";
+            }
+        }
+
+        // Mobile validation
+        if (!form.mobile.trim()) {
+            newErrors.mobile = "Mobile number is required";
+        } else {
+            const mobileRegex = /^[0-9]{10}$/; // adjust if country code needed
+            if (!mobileRegex.test(form.mobile)) {
+                newErrors.mobile = "Invalid mobile number";
+            }
+        }
 
         setErrors(newErrors);
 
         return Object.keys(newErrors).length === 0;
     };
+
 
     const handlePay = () => {
         if (!validate()) return;
@@ -120,7 +140,12 @@ export default function CheckoutPage() {
                                     name="mobile"
                                     className={`form-control ${errors.mobile ? "is-invalid" : ""}`}
                                     value={form.mobile}
-                                    onChange={handleChange}
+                                    onChange={(e) => {
+                                        const onlyNums = e.target.value.replace(/\D/g, "");
+                                        setForm({ ...form, mobile: onlyNums });
+                                        setErrors({ ...errors, mobile: "" });
+                                    }}
+                                    maxLength={10}
                                 />
                                 {errors.mobile && (
                                     <div className="text-danger mt-1">{errors.mobile}</div>

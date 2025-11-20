@@ -399,6 +399,7 @@ export default function HomePage() {
                   backdropFilter: "blur(12px)",
                   transformStyle: "preserve-3d",
                   border: "1px solid rgba(255, 255, 255, 0.1)",
+                  height: "320px"
                 }}
               >
                 <img
