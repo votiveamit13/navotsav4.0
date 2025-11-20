@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function EventDetail() {
   const location = useLocation();
   const navigate = useNavigate();
+const [successPopup, setSuccessPopup] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
 const [form, setForm] = useState({
@@ -91,44 +92,62 @@ const [errors, setErrors] = useState({});
 };
 
 const validate = () => {
-  let newErrors = {};
+    let newErrors = {};
 
-  if (!form.name.trim()) newErrors.name = "Name is required";
-  if (!form.email.trim()) newErrors.email = "Email is required";
-  if (!form.mobile.trim()) newErrors.mobile = "Mobile is required";
+    // Name validation
+    if (!form.name.trim()) newErrors.name = "Name is required";
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
-
-const handlePayNow = async () => {
-  if (!validate()) return;
-
-  // CALL BACKEND API
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/phonepe/initiate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user: form,
-        selectedPass,
-        totalAmount,
-        eventId,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (data.success && data.redirect_url) {
-      window.location.href = data.redirect_url; // 🔥 Open PhonePe gateway
+    // Email validation
+    if (!form.email.trim()) {
+        newErrors.email = "Email is required";
+    } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(form.email)) {
+            newErrors.email = "Invalid email address";
+        }
     }
-  } catch (err) {
-    console.error("Payment error:", err);
-  }
+
+    // Mobile validation
+    if (!form.mobile.trim()) {
+        newErrors.mobile = "Mobile number is required";
+    } else {
+        const mobileRegex = /^[0-9]{10}$/; // adjust if country code needed
+        if (!mobileRegex.test(form.mobile)) {
+            newErrors.mobile = "Invalid mobile number";
+        }
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
 };
 
 
+// const handlePayNow = async () => {
+//   if (!validate()) return;
 
+//   // CALL BACKEND API
+//   try {
+//     const response = await fetch("http://127.0.0.1:8000/api/phonepe/initiate", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         user: form,
+//         selectedPass,
+//         totalAmount,
+//         eventId,
+//       }),
+//     });
+
+//     const data = await response.json();
+
+//     if (data.success && data.redirect_url) {
+//       window.location.href = data.redirect_url; // 🔥 Open PhonePe gateway
+//     }
+//   } catch (err) {
+//     console.error("Payment error:", err);
+//   }
+// };
 
   return (
     <div className="py-5 text-light bg-black" style={{ fontFamily: "Poppins, sans-serif" }}>
@@ -213,7 +232,7 @@ const handlePayNow = async () => {
         {/* RIGHT CHECKOUT */}
         <div className="col-12 col-lg-5">
           <motion.div
-            className="p-4 rounded-4 shadow-lg position-sticky"
+            className={`p-4 rounded-4 shadow-lg ${showForm ? "" : "position-sticky"}`}
             style={{
               top: "20px",
               background: "rgba(255, 255, 255, 0.07)",
@@ -242,6 +261,11 @@ const handlePayNow = async () => {
             </div>
 
 {!showForm && (
+  <>
+  <p className="text-warning fw-semibold mt-3 mb-1" style={{ fontSize: "14px" }}>
+      <span className="text-danger">*</span> Pay Cash on Ticket collection
+    </p>
+ 
   <button
     onClick={() => setShowForm(true)}
     className="btn btn-warning w-100 mt-4 fw-bold py-2"
@@ -249,19 +273,12 @@ const handlePayNow = async () => {
   >
     Proceed to Checkout
   </button>
+   </>
 )}
 
 {showForm && (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="mt-4 p-4 rounded-4"
-    style={{
-      background: "rgba(255,255,255,0.08)",
-      border: "1px solid rgba(255,255,255,0.2)",
-    }}
-  >
-    <h4 className="text-warning fw-bold mb-3">Your Details</h4>
+<div>
+    <h4 className="mt-3 text-warning fw-bold mb-3">Your Details</h4>
 
     {/* NAME */}
     <div className="mb-3">
@@ -297,18 +314,27 @@ const handlePayNow = async () => {
         className={`form-control ${errors.mobile ? "is-invalid" : ""}`}
         name="mobile"
         value={form.mobile}
-        onChange={handleChange}
+            onChange={(e) => {
+      const onlyNums = e.target.value.replace(/\D/g, "");
+      setForm({ ...form, mobile: onlyNums });
+      setErrors({ ...errors, mobile: "" });
+    }}
+    maxLength={10}
       />
       {errors.mobile && <div className="text-danger">{errors.mobile}</div>}
     </div>
 
-    <button
-      className="btn btn-warning w-100 fw-bold py-2 mt-2"
-      onClick={handlePayNow}
-    >
-      Proceed to Pay
-    </button>
-  </motion.div>
+<button
+  className="btn btn-warning w-100 fw-bold py-2 mt-2"
+  onClick={() => {
+    if (!validate()) return;
+    setSuccessPopup(true); 
+  }}
+>
+  Submit Details
+</button>
+
+    </div>
 )}
 
 
@@ -337,6 +363,39 @@ const handlePayNow = async () => {
 
         </div>
       </div>
+      {successPopup && (
+  <div
+    className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style={{ background: "rgba(0,0,0,0.6)", zIndex: 9999 }}
+  >
+    <motion.div
+      initial={{ scale: 0.7, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      className="p-4 rounded-4 text-center"
+      style={{
+        width: "90%",
+        maxWidth: "400px",
+        background: "rgba(255,255,255,0.1)",
+        border: "1px solid rgba(255,255,255,0.2)",
+        backdropFilter: "blur(12px)",
+      }}
+    >
+      <h3 className="text-success fw-bold mb-2">Success</h3>
+      <p className="text-white fs-5">
+        Your pass is booked. <br />
+        <strong>Pay Cash on Ticket collection</strong>
+      </p>
+
+      <button
+        className="btn btn-warning w-75 fw-bold mt-3"
+        onClick={() => {setSuccessPopup(false); navigate("/")}}
+      >
+        OK
+      </button>
+    </motion.div>
+  </div>
+)}
+
     </div>
   );
 }
