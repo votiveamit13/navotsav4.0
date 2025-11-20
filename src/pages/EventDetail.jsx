@@ -14,7 +14,10 @@ const [form, setForm] = useState({
   name: "",
   email: "",
   mobile: "",
+  jnv: "",
+  year: "",
 });
+
 const [errors, setErrors] = useState({});
 
 
@@ -117,6 +120,18 @@ const validate = () => {
         }
     }
 
+    if (!form.jnv.trim()) newErrors.jnv = "JNV Name is required";
+
+// Year validation
+if (!form.year.trim()) {
+  newErrors.year = "Passout Year is required";
+} else {
+  const yearRegex = /^[0-9]{4}$/;
+  if (!yearRegex.test(form.year)) {
+    newErrors.year = "Enter valid year (e.g., 2015)";
+  }
+}
+
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -161,6 +176,8 @@ const handleSubmitOffline = async () => {
     name: form.name,
     email: form.email,
     mobile: form.mobile,
+    jnv: form.jnv, 
+  year: form.year, 
   };
 
   try {
@@ -360,6 +377,36 @@ const handleSubmitOffline = async () => {
       />
       {errors.mobile && <div className="text-danger">{errors.mobile}</div>}
     </div>
+{/* JNV Name */}
+<div className="mb-3">
+  <label className="text-light">JNV Name *</label>
+  <input
+    type="text"
+    className={`form-control ${errors.jnv ? "is-invalid" : ""}`}
+    name="jnv"
+    value={form.jnv}
+    onChange={handleChange}
+  />
+  {errors.jnv && <div className="text-danger">{errors.jnv}</div>}
+</div>
+
+{/* Passout Year */}
+<div className="mb-3">
+  <label className="text-light">Passout Year *</label>
+  <input
+    type="text"
+    className={`form-control ${errors.year ? "is-invalid" : ""}`}
+    name="year"
+    maxLength={4}
+    value={form.year}
+    onChange={(e) => {
+      const onlyNum = e.target.value.replace(/\D/g, "");
+      setForm({ ...form, year: onlyNum });
+      setErrors({ ...errors, year: "" });
+    }}
+  />
+  {errors.year && <div className="text-danger">{errors.year}</div>}
+</div>
 
 <button
   className="btn btn-warning w-100 fw-bold py-2 mt-2"
