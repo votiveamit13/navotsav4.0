@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
 import { eventDetail } from "../services/EventService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function EventDetail() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const eventId =
     location.state?.event ||
@@ -186,9 +187,22 @@ export default function EventDetail() {
               <span className="text-warning">₹{totalAmount}</span>
             </div>
 
-            <button className="btn btn-warning w-100 mt-4 fw-bold py-2" disabled={totalAmount === 0}>
-              Proceed to Checkout
-            </button>
+<button
+  onClick={() =>
+    navigate("/proceed-to-pay", {
+      state: {
+        selectedPass,
+        totalAmount,
+        event,       // optional
+      },
+    })
+  }
+  className="btn btn-warning w-100 mt-4 fw-bold py-2"
+  disabled={totalAmount === 0}
+>
+  Proceed to Checkout
+</button>
+
           </motion.div>
           {/* TERMS & CONDITIONS */}
           <div

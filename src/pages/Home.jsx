@@ -102,27 +102,28 @@ export default function HomePage() {
       </motion.div>
       {events.length > 0 ? (
         events.map((event, index) => (
-<motion.button
-  onClick={() => navigate("/event-detail", { state: { event: event.id } })}
-  key={event.id}
-  whileHover={{ scale: 1.15, rotateZ: -5 }}
-  whileTap={{ scale: 0.95 }}
-  className="position-fixed"
-  style={{
-    bottom: "25px",
-    right: "25px",
-    zIndex: 9999,
-    padding: "15px 30px",
-    borderRadius: "50px",
-    fontWeight: "bold",
-    background: "linear-gradient(135deg, #ffcc00 0%, #ff8800 100%)",
-    boxShadow: "0 10px 30px rgba(255, 200, 0, 0.4)",
-    color: "#000",
-  }}
->
-  Book Now
-</motion.button>
-))
+          <motion.button
+            onClick={() => navigate("/event-detail", { state: { event: event.id } })}
+            key={event.id}
+            whileHover={{ scale: 1.15, rotateZ: -5 }}
+            whileTap={{ scale: 0.95 }}
+            className="position-fixed"
+            style={{
+              bottom: "25px",
+              right: "25px",
+              zIndex: 9999,
+              padding: "15px 30px",
+              borderRadius: "50px",
+              fontWeight: "bold",
+              background: "linear-gradient(135deg, #ffcc00 0%, #ff8800 100%)",
+              boxShadow: "0 10px 30px rgba(255, 200, 0, 0.4)",
+              color: "#000",
+              transform: `translateZ(50px)`,
+            }}
+          >
+            Book Now
+          </motion.button>
+        ))
       ) : (
         <p className="text-center">No events found</p>
       )}

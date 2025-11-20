@@ -24,6 +24,7 @@ import { NotificationPage } from "./pages/NotificationPage";
 import BlogDetail from "./pages/BlogDetail";
 import AboutMob from "./pages/AboutMob";
 import PastEvents from "./pages/PastEvents";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/event-detail" element={<EventDetail />} />
+          <Route path="/proceed-to-pay" element={<CheckoutPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/favourite-events" element={<FavouriteEvents />} />
             <Route path="/tickets-history" element={<PurchasedTickets />} />
