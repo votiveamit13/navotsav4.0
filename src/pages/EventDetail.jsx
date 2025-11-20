@@ -8,6 +8,15 @@ export default function EventDetail() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const [showForm, setShowForm] = useState(false);
+const [form, setForm] = useState({
+  name: "",
+  email: "",
+  mobile: "",
+});
+const [errors, setErrors] = useState({});
+
+
   const eventId =
     location.state?.event ||
     location.state?.id ||
@@ -75,6 +84,51 @@ export default function EventDetail() {
 
   const selectedPass = passes.find((p) => p.id === selectedPassId);
   const totalAmount = selectedPass ? selectedPass.qty * selectedPass.price : 0;
+
+  const handleChange = (e) => {
+  setForm({ ...form, [e.target.name]: e.target.value });
+  setErrors({ ...errors, [e.target.name]: "" });
+};
+
+const validate = () => {
+  let newErrors = {};
+
+  if (!form.name.trim()) newErrors.name = "Name is required";
+  if (!form.email.trim()) newErrors.email = "Email is required";
+  if (!form.mobile.trim()) newErrors.mobile = "Mobile is required";
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+const handlePayNow = async () => {
+  if (!validate()) return;
+
+  // CALL BACKEND API
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/phonepe/initiate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user: form,
+        selectedPass,
+        totalAmount,
+        eventId,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.redirect_url) {
+      window.location.href = data.redirect_url; // 🔥 Open PhonePe gateway
+    }
+  } catch (err) {
+    console.error("Payment error:", err);
+  }
+};
+
+
+
 
   return (
     <div className="py-5 text-light bg-black" style={{ fontFamily: "Poppins, sans-serif" }}>
@@ -187,21 +241,77 @@ export default function EventDetail() {
               <span className="text-warning">₹{totalAmount}</span>
             </div>
 
-<button
-  onClick={() =>
-    navigate("/proceed-to-pay", {
-      state: {
-        selectedPass,
-        totalAmount,
-        event,       // optional
-      },
-    })
-  }
-  className="btn btn-warning w-100 mt-4 fw-bold py-2"
-  disabled={totalAmount === 0}
->
-  Proceed to Checkout
-</button>
+{!showForm && (
+  <button
+    onClick={() => setShowForm(true)}
+    className="btn btn-warning w-100 mt-4 fw-bold py-2"
+    disabled={totalAmount === 0}
+  >
+    Proceed to Checkout
+  </button>
+)}
+
+{showForm && (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="mt-4 p-4 rounded-4"
+    style={{
+      background: "rgba(255,255,255,0.08)",
+      border: "1px solid rgba(255,255,255,0.2)",
+    }}
+  >
+    <h4 className="text-warning fw-bold mb-3">Your Details</h4>
+
+    {/* NAME */}
+    <div className="mb-3">
+      <label className="text-light">Name *</label>
+      <input
+        type="text"
+        className={`form-control ${errors.name ? "is-invalid" : ""}`}
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+      />
+      {errors.name && <div className="text-danger">{errors.name}</div>}
+    </div>
+
+    {/* EMAIL */}
+    <div className="mb-3">
+      <label className="text-light">Email *</label>
+      <input
+        type="email"
+        className={`form-control ${errors.email ? "is-invalid" : ""}`}
+        name="email"
+        value={form.email}
+        onChange={handleChange}
+      />
+      {errors.email && <div className="text-danger">{errors.email}</div>}
+    </div>
+
+    {/* MOBILE */}
+    <div className="mb-3">
+      <label className="text-light">Mobile *</label>
+      <input
+        type="tel"
+        className={`form-control ${errors.mobile ? "is-invalid" : ""}`}
+        name="mobile"
+        value={form.mobile}
+        onChange={handleChange}
+      />
+      {errors.mobile && <div className="text-danger">{errors.mobile}</div>}
+    </div>
+
+    <button
+      className="btn btn-warning w-100 fw-bold py-2 mt-2"
+      onClick={handlePayNow}
+    >
+      Proceed to Pay
+    </button>
+  </motion.div>
+)}
+
+
 
           </motion.div>
           {/* TERMS & CONDITIONS */}
