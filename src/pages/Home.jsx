@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
+import { fetchEvents } from "../services/EventService";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const [events, setEvents] = useState([]);
   const [scrollY, setScrollY] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -50,6 +54,24 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    async function lateEvents() {
+      try {
+        const res = await fetchEvents({ limit: 1 });
+        console.log("data", res.data);
+        setEvents(res.data);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      } finally {
+      }
+    }
+
+    lateEvents();
+  }, []);
+
+  //   const handleRedirect = (eventId) => {
+  //     navigate("/event-detail", { state: { event: eventId } });
+  //   };
 
   return (
     <div
@@ -78,29 +100,32 @@ export default function HomePage() {
           Limited Seats!
         </motion.span>
       </motion.div>
-
-      <motion.a
-        href="/event-detail"
-        whileHover={{ scale: 1.15, rotateZ: -5 }}
-        whileTap={{ scale: 0.95 }}
-        className="position-fixed"
-        style={{
-          bottom: "25px",
-          right: "25px",
-          zIndex: 9999,
-          padding: "15px 30px",
-          borderRadius: "50px",
-          fontWeight: "bold",
-          background:
-            "linear-gradient(135deg, #ffcc00 0%, #ff8800 100%)",
-          boxShadow: "0 10px 30px rgba(255, 200, 0, 0.4)",
-          color: "#000",
-          transform: `translateZ(50px)`,
-        }}
-      >
-        Book Now
-      </motion.a>
-
+      {events.length > 0 ? (
+        events.map((event, index) => (
+<motion.button
+  onClick={() => navigate("/event-detail", { state: { event: event.id } })}
+  key={event.id}
+  whileHover={{ scale: 1.15, rotateZ: -5 }}
+  whileTap={{ scale: 0.95 }}
+  className="position-fixed"
+  style={{
+    bottom: "25px",
+    right: "25px",
+    zIndex: 9999,
+    padding: "15px 30px",
+    borderRadius: "50px",
+    fontWeight: "bold",
+    background: "linear-gradient(135deg, #ffcc00 0%, #ff8800 100%)",
+    boxShadow: "0 10px 30px rgba(255, 200, 0, 0.4)",
+    color: "#000",
+  }}
+>
+  Book Now
+</motion.button>
+))
+      ) : (
+        <p className="text-center">No events found</p>
+      )}
       <section
         id="hero"
         className="d-flex align-items-center justify-content-center text-center"
@@ -243,71 +268,71 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-<div
-  className="w-100 position-absolute"
-  style={{ bottom: "10%", paddingBottom: "20px" }}
->
-  {/* DESKTOP VIEW */}
-  <div className="d-none d-md-flex justify-content-center gap-5">
-    {[
-      "/images/apporv.webp",
-      "/images/ranmaljain.jpg",
-      "/images/kabirstudio.jpg",
-      "/images/djbunny.avif",
-    ].map((img, i) => (
-      <motion.img
-        key={i}
-        src={img}
-        className="rounded shadow"
-        style={{
-          width: "130px",
-          height: "130px",
-          objectFit: "cover",
-          border: "3px solid #ffcc00",
-          borderRadius: "15px",
-          transform: `translateY(${scrollY * 0.1}px) translateZ(50px)`,
-        }}
-        whileHover={{ scale: 1.2, rotateY: 15, rotateX: 5 }}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: i * 0.2, duration: 0.8 }}
-      />
-    ))}
-  </div>
+        <div
+          className="w-100 position-absolute"
+          style={{ bottom: "10%", paddingBottom: "20px" }}
+        >
+          {/* DESKTOP VIEW */}
+          <div className="d-none d-md-flex justify-content-center gap-5">
+            {[
+              "/images/apporv.webp",
+              "/images/ranmaljain.jpg",
+              "/images/kabirstudio.jpg",
+              "/images/djbunny.avif",
+            ].map((img, i) => (
+              <motion.img
+                key={i}
+                src={img}
+                className="rounded shadow"
+                style={{
+                  width: "130px",
+                  height: "130px",
+                  objectFit: "cover",
+                  border: "3px solid #ffcc00",
+                  borderRadius: "15px",
+                  transform: `translateY(${scrollY * 0.1}px) translateZ(50px)`,
+                }}
+                whileHover={{ scale: 1.2, rotateY: 15, rotateX: 5 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.2, duration: 0.8 }}
+              />
+            ))}
+          </div>
 
-  {/* MOBILE VIEW */}
-{/* MOBILE AUTO-SCROLL VERSION */}
-<div className="d-block d-md-none position-absolute w-100" style={{ bottom: "50%" }}>
-  <div className="scroll-container">
-    <div className="scroll-track">
-      {[ 
-        "/images/apporv.webp",
-        "/images/ranmaljain.jpg",
-        "/images/kabirstudio.jpg",
-        "/images/djbunny.avif",
-      ]
-        // duplicate array to create infinite loop
-        .concat([
-          "/images/apporv.webp",
-          "/images/ranmaljain.jpg",
-          "/images/kabirstudio.jpg",
-          "/images/djbunny.avif",
-        ])
-        .map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            className="scroll-img"
-          />
-        ))}
-    </div>
-  </div>
-</div>
+          {/* MOBILE VIEW */}
+          {/* MOBILE AUTO-SCROLL VERSION */}
+          <div className="d-block d-md-none position-absolute w-100" style={{ bottom: "50%" }}>
+            <div className="scroll-container">
+              <div className="scroll-track">
+                {[
+                  "/images/apporv.webp",
+                  "/images/ranmaljain.jpg",
+                  "/images/kabirstudio.jpg",
+                  "/images/djbunny.avif",
+                ]
+                  // duplicate array to create infinite loop
+                  .concat([
+                    "/images/apporv.webp",
+                    "/images/ranmaljain.jpg",
+                    "/images/kabirstudio.jpg",
+                    "/images/djbunny.avif",
+                  ])
+                  .map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      className="scroll-img"
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
 
 
-  {/* AUTO SCROLL KEYFRAMES */}
-  <style>
-    {`
+          {/* AUTO SCROLL KEYFRAMES */}
+          <style>
+            {`
 .scroll-container {
   overflow: hidden;
   width: 100%;
@@ -342,8 +367,8 @@ export default function HomePage() {
 }
 
     `}
-  </style>
-</div>
+          </style>
+        </div>
 
       </section>
 
@@ -545,7 +570,30 @@ export default function HomePage() {
       </section>
 
 
+      <section className="bg-black">
+        <div className="container py-2 text-center">
+          <div className="shimmer-border p-1 rounded-4">
+            <div className="inner-box rounded-4 p-5">
+              <div className="d-flex align-items-center justify-content-center flex-wrap gap-3 mb-3">
+                <div className="small">
+                  MAAN - Madhya Pradesh Alumni Association of Navodaya
+                </div>
 
+                {/* <div
+              className="rounded-circle bg-warning"
+              style={{ width: "8px", height: "8px" }}
+            ></div>
+
+            <div className="small">Phoenix Citadel</div> */}
+              </div>
+
+              <p className="text-secondary small mb-0">
+                © 2025 Navotsav 4.0. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* KEYFRAMES */}
       <style>{`

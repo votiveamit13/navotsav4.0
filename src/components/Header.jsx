@@ -68,11 +68,11 @@ const Header = () => {
             id="navbarNav"
           >
             <ul className="navbar-nav mb-2 mb-lg-0 gap-lg-3">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/">
                   {t("home")}
                 </NavLink>
-              </li>
+              </li> */}
               {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/fundraising-products">
                   {t("fundraisingProducts")}
@@ -111,7 +111,7 @@ const Header = () => {
             </ul>
 
             {/* Right Side */}
-            <div className="d-flex mt-3 mt-lg-0 right-side-login">
+            {/* <div className="d-flex mt-3 mt-lg-0 right-side-login">
               {!user ? (
                 <>
                   <button className="btn bg-warning d-flex align-items-center gap-2 px-3 login-btn-add">
@@ -125,7 +125,7 @@ const Header = () => {
               ) : (
                 <div className="d-flex justify-content-end align-items-center gap-3">
                   <div className="dropdown">
-                    <a
+                    {/* <a
                       className="text-dark position-relative"
                       href="#"
                       role="button"
@@ -138,9 +138,9 @@ const Header = () => {
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {notifications.length}
                       </span>
-                    </a>
+                    </a> */}
 
-                    <ul
+                    {/* <ul
                       className="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3"
                       aria-labelledby="notificationDropdown"
                       style={{ width: "320px" }}
@@ -161,14 +161,14 @@ const Header = () => {
                               onClick={handleRedirect}
                               className="dropdown-item d-flex align-items-center gap-2 py-2"
                               href="#"
-                            >
+                            > */}
                               {/* <img src={notification.icon} /> */}
-                              <span>{notification.title}</span>
+                              {/* <span>{notification.title}</span>
                             </a>
                           </li>
-                        ))}
+                        ))} */}
 
-                      <li>
+                      {/* <li>
                         <NavLink
                           to="/notifications"
                           className="dropdown-item text-center fw-semibold text-primary"
@@ -207,15 +207,15 @@ const Header = () => {
                     >
                       <li>
                         <NavLink className="dropdown-item" to="/profile">
-                          My Profile
+                          My Passes
                         </NavLink>
-                      </li>
+                      </li> */}
                       {/* <li>
                         <a className="dropdown-item" href="#">
                           Settings
                         </a>
                       </li> */}
-                      <li>
+                      {/* <li>
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
@@ -226,8 +226,8 @@ const Header = () => {
                     </ul>
                   </div>
                 </div>
-              )}
-            </div>
+              )} */}
+           {/* </div> */}
           </div>
         </div>
       </nav>

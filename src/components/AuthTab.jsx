@@ -23,20 +23,20 @@ export const AuthTab = () => {
       </div>
       <nav className="nav flex-column">
         <NavLink className="nav-link" to="/profile">
-          <i className="bi bi-person"></i> Profile
+          <i className="bi bi-person"></i> My Passes
         </NavLink>
-        <NavLink className="nav-link" to="/notifications">
+        {/* <NavLink className="nav-link" to="/notifications">
           <i className="bi bi-bell fs-5"></i> Notifications
         </NavLink>
         <NavLink className="nav-link" to="/tickets-history">
           <i className="bi bi-ticket-perforated"></i> Donate History
-        </NavLink>
+        </NavLink> */}
         {/* <NavLink className="nav-link" to="/">
           <i className="bi bi-gift"></i> Claim
         </NavLink> */}
-        <NavLink className="nav-link" to="/favourite-events">
+        {/* <NavLink className="nav-link" to="/favourite-events">
           <i className="bi bi-heart"></i> Favourite Events
-        </NavLink>
+        </NavLink> */}
         <a
           className="nav-link"
           href="javascript:void(0)"

@@ -131,7 +131,7 @@ export default function Profile() {
                   Welcome Back
                 </h4>
 
-                <div className="profile-card mt-4">
+                {/* <div className="profile-card mt-4">
                   <div className="card-header">{t("profile")}</div>
                   <div className="card-body">
                     <div className="d-flex align-items-center mb-4">
@@ -243,7 +243,7 @@ export default function Profile() {
                       </button>
                     </form>
                   </div>
-                </div>
+                </div> */}
               </>
             )}
           </div>

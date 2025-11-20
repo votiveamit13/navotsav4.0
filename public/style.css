@@ -52,15 +52,15 @@ nav.navbar.navbar-expand-lg a.navbar-brand.fw-bold img {
 }
 
 .our-next-hero .search-box .form-select:focus {
-    border-color: #f9037a !important;
+    border-color: #ffc107 !important;
 }
 
 nav.navbar.navbar-expand-lg a.nav-link.active {
-    color: #f9037a !important;
+    color: black !important;
 }
 
 nav.navbar.navbar-expand-lg a.nav-link:hover {
-    color: #f9037a !important;
+    color: #ffc107 !important;
 }
 
 /* Hero Background */

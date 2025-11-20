@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     toast.success("Logged out");
-    navigate("/fundraising-products");
+    navigate("/");
   };
 
   return (

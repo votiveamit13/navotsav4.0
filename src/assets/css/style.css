@@ -52,11 +52,11 @@ nav.navbar.navbar-expand-lg a.navbar-brand.fw-bold img {
 }
 
 nav.navbar.navbar-expand-lg a.nav-link.active:hover {
-    color: #f9037a !important;
+    color: #ffc107 !important;
 }
 
 nav.navbar.navbar-expand-lg a.nav-link:hover {
-    color: #f9037a !important;
+    color: #ffc107 !important;
 }
 
 /* Hero Background */
