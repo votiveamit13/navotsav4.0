@@ -149,6 +149,43 @@ const validate = () => {
 //   }
 // };
 
+const handleSubmitOffline = async () => {
+  if (!validate()) return;
+
+  const payload = {
+    event_id: eventId,
+    pass_id: selectedPass?.id,
+    pass_name: selectedPass?.name,
+    qty: selectedPass?.qty,
+    amount: totalAmount,
+    name: form.name,
+    email: form.email,
+    mobile: form.mobile,
+  };
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setSuccessPopup(true);
+    } else {
+      alert(data.message || "Something went wrong!");
+    }
+  } catch (error) {
+    console.error("❌ Offline Booking Error:", error);
+    alert("Failed to submit booking");
+  }
+};
+
+
   return (
     <div className="py-5 text-light bg-black" style={{ fontFamily: "Poppins, sans-serif" }}>
       <div className="container mx-auto row g-4">
@@ -326,13 +363,11 @@ const validate = () => {
 
 <button
   className="btn btn-warning w-100 fw-bold py-2 mt-2"
-  onClick={() => {
-    if (!validate()) return;
-    setSuccessPopup(true); 
-  }}
+  onClick={handleSubmitOffline}
 >
   Submit Details
 </button>
+
 
     </div>
 )}
