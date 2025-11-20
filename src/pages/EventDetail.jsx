@@ -281,8 +281,8 @@ import { motion } from "framer-motion";
 export default function EventDetail() {
   const passesData = [
     { id: 1, name: "Students pass", price: 100 },
-    { id: 2, name: "Professional  pass for adult", price: 200 },
-    { id: 3, name: "Professional pass for family ( specific family zone )", price: 250 },
+    { id: 2, name: "Professional pass for adult", price: 200 },
+    { id: 3, name: "Professional pass for family (specific family zone)", price: 250 },
     { id: 4, name: "Host pass only for family", price: 200 },
   ];
 
@@ -290,7 +290,21 @@ export default function EventDetail() {
     passesData.map((p) => ({ ...p, qty: 0 }))
   );
 
+  const [selectedPassId, setSelectedPassId] = useState(null);
+
+ 
+  const handleSelect = (id) => {
+    setSelectedPassId(id);
+    setPasses((prev) =>
+      prev.map((p) =>
+        p.id === id ? { ...p, qty: p.qty } : { ...p, qty: 0 }
+      )
+    );
+  };
+
   const increment = (id) => {
+    if (id !== selectedPassId) return;
+
     setPasses((prev) =>
       prev.map((p) =>
         p.id === id ? { ...p, qty: p.qty + 1 } : p
@@ -299,6 +313,8 @@ export default function EventDetail() {
   };
 
   const decrement = (id) => {
+    if (id !== selectedPassId) return;
+
     setPasses((prev) =>
       prev.map((p) =>
         p.id === id && p.qty > 0 ? { ...p, qty: p.qty - 1 } : p
@@ -306,10 +322,8 @@ export default function EventDetail() {
     );
   };
 
-  const totalAmount = passes.reduce(
-    (sum, p) => sum + p.price * p.qty,
-    0
-  );
+  const selectedPass = passes.find((p) => p.id === selectedPassId);
+  const totalAmount = selectedPass ? selectedPass.qty * selectedPass.price : 0;
 
   return (
     <div className="py-5 text-light bg-black" style={{ fontFamily: "Poppins, sans-serif" }}>
@@ -328,33 +342,55 @@ export default function EventDetail() {
               {passes.map((p) => (
                 <div
                   key={p.id}
+                  onClick={() => handleSelect(p.id)}
                   className="d-flex justify-content-between align-items-center px-3 py-2 rounded-4 shadow-sm"
                   style={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background:
+                      selectedPassId === p.id
+                        ? "rgba(255, 193, 7, 0.15)"
+                        : "rgba(255, 255, 255, 0.05)",
+                    border:
+                      selectedPassId === p.id
+                        ? "1px solid rgba(255,193,7,0.4)"
+                        : "1px solid rgba(255,255,255,0.1)",
+                    cursor: "pointer",
                   }}
                 >
-                  {/* PASS NAME + PRICE */}
-                  <div>
-                    <h5 className="mb-0">{p.name}</h5>
-                    <small className="text-warning fw-bold">
-                      ₹{p.price}
-                    </small>
-                  </div>
+                  <div className="d-flex justify-content-start">
+                  {/* RADIO BUTTON */}
+                  <input
+                    type="radio"
+                    checked={selectedPassId === p.id}
+                    onChange={() => handleSelect(p.id)}
+                    style={{ width: "20px", height: "20px" }}
+                  />
 
-                  {/* QUANTITY CONTROLS */}
+                  {/* PASS NAME + PRICE */}
+                  <div className="ms-3">
+                    <h5 className="mb-0">{p.name}</h5>
+                    <small className="text-warning fw-bold">₹{p.price}</small>
+                  </div>
+</div>
+                  {/* QUANTITY */}
                   <div className="d-flex align-items-center gap-2">
                     <button
                       className="btn text-white px-3"
-                      onClick={() => decrement(p.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        decrement(p.id);
+                      }}
+                      disabled={selectedPassId !== p.id}
                     >
                       -
                     </button>
                     <span className="fs-5">{p.qty}</span>
                     <button
                       className="btn text-white px-3"
-                      onClick={() => increment(p.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        increment(p.id);
+                      }}
+                      disabled={selectedPassId !== p.id}
                     >
                       +
                     </button>
@@ -365,9 +401,7 @@ export default function EventDetail() {
           </div>
         </div>
 
-        {/* --------------------------
-             RIGHT SIDE CHECKOUT BOX
-        --------------------------- */}
+        {/* RIGHT SIDE CHECKOUT */}
         <div className="col-12 col-lg-5">
           <motion.div
             className="p-4 rounded-4 shadow-lg position-sticky"
@@ -382,21 +416,14 @@ export default function EventDetail() {
           >
             <h4 className="fw-bold text-warning mb-3">Order Summary</h4>
 
-            {/* PASS SUMMARY LIST */}
-            {passes.filter(p => p.qty > 0).length === 0 ? (
-              <p>No passes selected.</p>
+            {/* SUMMARY */}
+            {!selectedPass || selectedPass.qty === 0 ? (
+              <p>No pass selected.</p>
             ) : (
-              passes
-                .filter((p) => p.qty > 0)
-                .map((p) => (
-                  <div
-                    key={p.id}
-                    className="d-flex justify-content-between border-bottom py-2"
-                  >
-                    <span>{p.name} × {p.qty}</span>
-                    <span>₹{p.price * p.qty}</span>
-                  </div>
-                ))
+              <div className="d-flex justify-content-between border-bottom py-2">
+                <span>{selectedPass.name} × {selectedPass.qty}</span>
+                <span>₹{totalAmount}</span>
+              </div>
             )}
 
             {/* TOTAL */}
@@ -405,7 +432,7 @@ export default function EventDetail() {
               <span className="text-warning">₹{totalAmount}</span>
             </div>
 
-            {/* CHECKOUT BUTTON */}
+            {/* CHECKOUT */}
             <button
               className="btn btn-warning w-100 mt-4 fw-bold py-2"
               disabled={totalAmount === 0}
