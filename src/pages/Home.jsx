@@ -374,7 +374,7 @@ export default function HomePage() {
       </section>
 
       <section id="artists" className="container py-5 text-center">
-        <h2 className="display-5 fw-bold text-warning mb-4">
+        <h2 className="display-0 display-md-6 fw-bold text-warning mb-4">
           Featured Artists
         </h2>
 
@@ -453,7 +453,7 @@ export default function HomePage() {
       </section>
 
       <section className="container text-center py-5">
-        <h2 className="fw-bold text-warning mb-4 display-5">
+        <h2 className="fw-bold text-warning mb-4 display-0 display-md-6">
           Why Attend NAVOTSAV 4.0?
         </h2>
 
@@ -495,11 +495,12 @@ export default function HomePage() {
       </section>
 
       <section className="py-5 text-center" style={{ background: "#080808" }}>
-        <h2 className="text-warning fw-bold mb-4 display-6">
-          Countdown to NAVOTSAV 4.0
-        </h2>
+<h2 className="text-warning fw-bold mb-4 display-0 display-md-6">
+  Countdown to NAVOTSAV 4.0
+</h2>
 
-        <div className="d-flex justify-content-center gap-4 flex-wrap">
+
+        <div className="d-flex justify-content-center gap-2 gap-md-4 px-2 px-md-0 flex-nowrap flex-md-wrap">
           {[
             { label: "Days", value: timeLeft.days },
             { label: "Hours", value: timeLeft.hours },
@@ -511,7 +512,7 @@ export default function HomePage() {
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: i * 0.2 }}
-              className="p-3 rounded-4 shadow text-center"
+              className="p-2 p-md-3 rounded-4 shadow text-center"
               style={{
                 width: "120px",
                 background: "rgba(255,255,255,0.05)",
@@ -527,7 +528,7 @@ export default function HomePage() {
       </section>
 
       <section id="artists" className="container py-5 text-center">
-        <h2 className="display-5 fw-bold text-warning mb-4">
+        <h2 className="display-6 display-md-4 fw-bold text-warning mb-4">
           Our Sponsors
         </h2>
 

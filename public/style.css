@@ -1572,3 +1572,29 @@ nav.navbar.navbar-expand-lg.shadow-sm.sticky-top.about_mob {
 a.navbar-brand.fw-bold.d-flex.align-items-center {
     margin-right: 0px;
 }
+
+.btn-qty {
+  /* background: rgba(255,255,255,0.1); */
+  color: white !important;
+  border: none;
+}
+
+.btn-qty:hover {
+  /* background: rgba(255,255,255,0.1); */
+  color: white !important;
+  border: none;
+}
+
+.btn-qty:disabled {
+  /* background: #555 !important; */
+  color: #ccc !important;
+  border: none !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;    /* Bootstrap reduces opacity — remove it */
+  box-shadow: none !important;
+}
+
+.btn-qty:not(:disabled):hover {
+  /* background: #777 !important; */
+}
+
