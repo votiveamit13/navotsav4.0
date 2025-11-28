@@ -54,12 +54,12 @@ const Header = () => {
             <div className="marquee-track">
               <span className="marquee-text">
                 <span className="red">NA</span>
-                <span className="green">VO</span>
-                <span className="yellow">TS</span>
-                <span className="blue">AV</span>
+                <span className="green">VL</span>
+                <span className="yellow">AY</span>&nbsp;
+                <span className="blue">1.0</span>
                 &nbsp;
                 <span className="gradient-text">
-                  4.0 - A grand fusion of comedy, storytelling, music & electrifying DJ night
+                  - A grand fusion of comedy, storytelling, music & electrifying DJ night
                 </span>
               </span>
             </div>

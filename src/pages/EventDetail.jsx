@@ -206,7 +206,7 @@ export default function EventDetail() {
 
   const handleSubmitOffline = async () => {
     if (!validate()) return;
-     setLoading(true); 
+    setLoading(true);
 
     const payload = {
       event_id: eventId,
@@ -234,7 +234,29 @@ export default function EventDetail() {
       setLoading(false);
 
       if (response.ok && data.success) {
+        console.log("data:", data)
         setSuccessPopup(true);
+
+        const message =
+          `*Your Ticket Details*
+
+*Order ID:* ${data.orderId}
+
+*Name:* ${form.name}
+*Pass:* ${selectedPass?.name}
+*Quantity:* ${selectedPass?.qty}
+*Amount:* ₹${totalAmount}
+*Event:* ${event.title}
+
+Please pay cash at the ticket counter.
+Thank you!`;
+
+
+        const whatsappNumber = "91" + form.mobile;
+
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+        window.location.href = whatsappURL;
         return;
       }
 
@@ -311,7 +333,7 @@ export default function EventDetail() {
                     />
 
                     <div className="ms-3">
-                  <h5 className="mb-0 fs-6 fs-md-5">{p.name}</h5>
+                      <h5 className="mb-0 fs-6 fs-md-5">{p.name}</h5>
 
                       <small className="text-warning fw-bold">₹{p.price}</small>
                     </div>
@@ -400,7 +422,7 @@ export default function EventDetail() {
                 </p>
 
                 <LoaderButton
-  loading={loading}
+                  loading={loading}
                   onClick={() => setShowForm(true)}
                   className="btn btn-warning w-100 mt-4 fw-bold py-2"
                   disabled={totalAmount === 0}
@@ -505,12 +527,12 @@ export default function EventDetail() {
                 </div>
 
                 <LoaderButton
-  loading={loading}
+                  loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleSubmitOffline}
                 >
                   Submit Details
-               </LoaderButton>
+                </LoaderButton>
 
 
               </div>
@@ -566,7 +588,7 @@ export default function EventDetail() {
             </p>
 
             <LoaderButton
-  loading={loading}
+              loading={loading}
               className="btn btn-warning w-75 fw-bold mt-3"
               onClick={() => { setSuccessPopup(false); navigate("/") }}
             >
@@ -593,12 +615,12 @@ export default function EventDetail() {
                 </div>
                 <div className="modal-footer">
                   <LoaderButton
-  loading={loading}
+                    loading={loading}
                     className="btn btn-danger"
                     onClick={() => setErrorPopup({ show: false, message: "" })}
                   >
                     Close
-                 </LoaderButton>
+                  </LoaderButton>
                 </div>
               </div>
             </div>
