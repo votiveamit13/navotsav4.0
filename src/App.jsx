@@ -27,6 +27,7 @@ import PastEvents from "./pages/PastEvents";
 import CheckoutPage from "./pages/CheckoutPage";
 import ScrollToTop from "./components/ScrollToTop";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import FloatingWhatsapp from "./components/FloatingWhatsapp";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
           </Route>
         </Routes>
       </main>
+      <FloatingWhatsapp /> 
       {/* <Footer /> */}
       <ToastContainer position="bottom-right" autoClose={3000} />
     </>

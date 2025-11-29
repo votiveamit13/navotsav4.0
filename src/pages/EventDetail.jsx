@@ -45,6 +45,65 @@ export default function EventDetail() {
     4: "Host pass only for family (family of 4)",
   };
 
+  const JNV_LIST = {
+  "Madhya Pradesh": [
+    "Agar Malwa",
+    "Alirajpur",
+    "Anuppur",
+    "Ashoknagar",
+    "Balaghat",
+    "Barwani",
+    "Betul",
+    "Bhind",
+    "Bhopal",
+    "Burhanpur",
+    "Chhatarpur",
+    "Chhindwara",
+    "Damoh",
+    "Datia",
+    "Dewas",
+    "Dhar",
+    "Dindori",
+    "Guna",
+    "Gwalior",
+    "Harda",
+    "Hoshangabad",
+    "Indore",
+    "Jabalpur",
+    "Jhabua",
+    "Katni",
+    "Khandwa",
+    "Khargone",
+    "Mandla",
+    "Mandsaur",
+    "Morena",
+    "Narsinghpur",
+    "Neemuch",
+    "Panna",
+    "Raisen",
+    "Rajgarh",
+    "Ratlam",
+    "Rewa",
+    "Sagar",
+    "Satna",
+    "Sehore",
+    "Seoni",
+    "Shahdol",
+    "Shajapur",
+    "Sheopur",
+    "Shivpuri",
+    "Sidhi",
+    "Singrauli",
+    "Tikamgarh",
+    "Ujjain I",
+    "Ujjain II",
+    "Umaria",
+    "Vidisha",
+  ]
+};
+
+const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
+
   useEffect(() => {
     const loadEvent = async () => {
       try {
@@ -620,7 +679,7 @@ export default function EventDetail() {
                   )}
                 </div>
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label className="text-light">JNV Name *</label>
                   <input
                     type="text"
@@ -630,9 +689,51 @@ export default function EventDetail() {
                     onChange={handleChange}
                   />
                   {errors.jnv && <div className="text-danger">{errors.jnv}</div>}
-                </div>
+                </div> */}
 
                 <div className="mb-3">
+  <label className="text-light">JNV Name *</label>
+
+  {/* Disable until state selected */}
+  {form.jnv_state === "" ? (
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Select state first"
+      disabled
+    />
+  ) : form.jnv_state === "Madhya Pradesh" ? (
+    /* Show dropdown for MP */
+    <select
+      name="jnv"
+      className={`form-control ${errors.jnv ? "is-invalid" : ""}`}
+      value={form.jnv}
+      onChange={handleChange}
+    >
+      <option value="">Select JNV (District)</option>
+      {JNV_LIST["Madhya Pradesh"].map((district) => (
+        <option key={district} value={district}>
+          {district}
+        </option>
+      ))}
+    </select>
+  ) : (
+    /* Show text input for ANY other state */
+    <input
+      type="text"
+      className={`form-control ${errors.jnv ? "is-invalid" : ""}`}
+      name="jnv"
+      value={form.jnv}
+      onChange={handleChange}
+      placeholder="Enter JNV Name"
+    />
+  )}
+
+  {errors.jnv && <div className="text-danger">{errors.jnv}</div>}
+</div>
+
+
+                {/* <div className="mb-3">
                   <label className="text-light">Passout Year *</label>
                   <input
                     type="text"
@@ -647,7 +748,28 @@ export default function EventDetail() {
                     }}
                   />
                   {errors.year && <div className="text-danger">{errors.year}</div>}
-                </div>
+                </div> */}
+
+                <div className="mb-3">
+  <label className="text-light">Passout Year *</label>
+
+  <select
+    name="year"
+    className={`form-control ${errors.year ? "is-invalid" : ""}`}
+    value={form.year}
+    onChange={handleChange}
+  >
+    <option value="">Select Year</option>
+    {years.map((yr) => (
+      <option key={yr} value={yr}>
+        {yr}
+      </option>
+    ))}
+  </select>
+
+  {errors.year && <div className="text-danger">{errors.year}</div>}
+</div>
+
 
                 <LoaderButton
                   loading={loading}

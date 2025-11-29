@@ -59,7 +59,7 @@ const Header = () => {
                 <span className="blue">1.0</span>
                 &nbsp;
                 <span className="gradient-text">
-                  - A grand fusion of comedy, storytelling, music & electrifying DJ night
+                  - A grand fusion of comedy, storytelling, music & electrifying DJ night. For any query contact at: +91 9589847113
                 </span>
               </span>
             </div>
