@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { motion } from "framer-motion";
 import { fetchEvents } from "../services/EventService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -527,7 +527,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="artists" className="container py-5 text-center">
+      {/* <section id="artists" className="container py-5 text-center">
         <h2 className="display-6 display-md-4 fw-bold text-warning mb-4">
           Our Sponsors
         </h2>
@@ -570,7 +570,7 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
 
       <section className="bg-black">
@@ -581,7 +581,6 @@ export default function HomePage() {
                 <div className="small">
                   MAAN - Madhya Pradesh Alumni Association of Navodaya
                 </div>
-
                 {/* <div
               className="rounded-circle bg-warning"
               style={{ width: "8px", height: "8px" }}
@@ -589,7 +588,12 @@ export default function HomePage() {
 
             <div className="small">Phoenix Citadel</div> */}
               </div>
+                <div className="d-flex align-items-center text-white justify-content-center flex-wrap gap-3 mb-3">
+                  <Link href="/" className="text-white text-decoration-none">Home</Link>
+                                    {/* <Link href="">NAVLAY 1.0</Link> */}
+                                    <Link to="/privacy-policy" className="text-white text-decoration-none">Privacy Policy</Link>
 
+                </div>
               <p className="text-secondary small mb-0">
                 © 2025 NAVLAY 1.0. All rights reserved.
               </p>

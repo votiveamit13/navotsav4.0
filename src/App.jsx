@@ -25,10 +25,13 @@ import BlogDetail from "./pages/BlogDetail";
 import AboutMob from "./pages/AboutMob";
 import PastEvents from "./pages/PastEvents";
 import CheckoutPage from "./pages/CheckoutPage";
+import ScrollToTop from "./components/ScrollToTop";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
     <>
+    <ScrollToTop />
       <Header />
       <main>
         <Routes>
@@ -39,6 +42,8 @@ function App() {
             element={<FundraisingProducts />}
           />
           <Route path="/past-events" element={<PastEvents />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
           <Route path="/about" element={<About />} />
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/contact" element={<Contact />} />
