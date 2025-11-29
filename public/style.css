@@ -1186,6 +1186,14 @@ tbody.ads-table-tickets td.text-wrap {
 
 
 @media only screen and (max-width: 767px) {
+
+.navlay-top-view-add .container.mx-auto {
+    justify-content: center;
+}
+.term-condition-add {
+    width: 94% !important;
+}
+
     .sidebar.left-sidebar {
         width: 90%;
         margin: auto;
@@ -1597,4 +1605,6 @@ a.navbar-brand.fw-bold.d-flex.align-items-center {
 .btn-qty:not(:disabled):hover {
   /* background: #777 !important; */
 }
+
+
 

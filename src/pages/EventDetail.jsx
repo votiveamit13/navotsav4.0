@@ -75,16 +75,14 @@ export default function EventDetail() {
       prev.map(p => {
         if (p.id !== id) return { ...p, qty: 0 };
 
-        let qty = p.qty;
-
-        if (p.id === 1) qty = 1;
-        else if (p.id === 3) qty = Math.max(2, p.qty || 2);
-        else qty = Math.max(1, p.qty || 1);
+        let minLimit = p.id === 3 ? 1 : 1; // all pass min = 1
+        let qty = p.qty || minLimit;
 
         return { ...p, qty };
       })
     );
   };
+
 
 
   const increment = (id) => {
@@ -94,7 +92,11 @@ export default function EventDetail() {
       prev.map(p => {
         if (p.id !== id) return p;
 
-        const maxLimit = p.id === 1 ? 1 : p.id === 3 ? 4 : 4;
+        const maxLimit =
+          p.id === 1 ? 2 :
+            p.id === 2 ? 2 :
+              p.id === 3 ? 4 :
+                p.id === 4 ? 2 : 1;
 
         if (p.qty >= maxLimit) return p;
 
@@ -103,9 +105,6 @@ export default function EventDetail() {
     );
   };
 
-
-
-
   const decrement = (id) => {
     if (id !== selectedPassId) return;
 
@@ -113,7 +112,7 @@ export default function EventDetail() {
       prev.map(p => {
         if (p.id !== id) return p;
 
-        const minLimit = p.id === 1 ? 1 : p.id === 3 ? 2 : 1;
+        const minLimit = 1; // All passes min = 1
 
         if (p.qty <= minLimit) return p;
 
@@ -121,6 +120,7 @@ export default function EventDetail() {
       })
     );
   };
+
 
 
 
@@ -204,102 +204,9 @@ export default function EventDetail() {
   //   }
   // };
 
-  //   const handleSubmitOffline = async () => {
-  //     if (!validate()) return;
-  //     setLoading(true);
-
-  //     const payload = {
-  //       event_id: eventId,
-  //       pass_id: selectedPass?.id,
-  //       pass_name: selectedPass?.name,
-  //       qty: selectedPass?.qty,
-  //       amount: totalAmount,
-  //       name: form.name,
-  //       email: form.email,
-  //       mobile: form.mobile,
-  //       jnv_state: form.jnv_state,
-  //       jnv: form.jnv,
-  //       year: form.year,
-  //     };
-
-  //     try {
-  //       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify(payload),
-  //       });
-
-  //       const data = await response.json();
-
-  //       setLoading(false);
-
-  //       if (response.ok && data.success) {
-  //         console.log("data:", data)
-  //         setSuccessPopup(true);
-
-  //         const message =
-  //           `*Your Ticket Details*
-
-  // *Order ID:* ${data.orderId}
-
-  // *Name:* ${form.name}
-  // *Pass:* ${selectedPass?.name}
-  // *Quantity:* ${selectedPass?.qty}
-  // *Amount:* ₹${totalAmount}
-  // *Event:* ${event.title}
-
-  // Please pay cash at the ticket counter.
-  // Thank you!`;
-
-
-  //         const whatsappNumber = "91" + form.mobile;
-
-  //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-  //         window.location.href = whatsappURL;
-  //         return;
-  //       }
-
-  //       if (response.status === 422) {
-  //         let message = "";
-
-  //         if (data.errors?.email) {
-  //           message = data.errors.email[0];
-  //         } else if (data.errors?.mobile) {
-  //           message = data.errors.mobile[0];
-  //         } else {
-  //           message = "Please check your input.";
-  //         }
-
-  //         setErrorPopup({ show: true, message });
-  //         return;
-  //       }
-
-  //       setErrorPopup({
-  //         show: true,
-  //         message: data.message || "Something went wrong!"
-  //       });
-
-  //     } catch (error) {
-  //       setLoading(false);
-  //       console.error("Offline Booking Error:", error);
-  //       setErrorPopup({ show: true, message: "Failed to connect to server" });
-  //     }
-  //   };
-
-  const handleRazorpayPayment = async () => {
+  const handleSubmitOffline = async () => {
     if (!validate()) return;
-
-    // const payload = {
-    //   event_id: eventId,
-    //   pass_id: selectedPass?.id,
-    //   pass_name: selectedPass?.name,
-    //   qty: selectedPass?.qty,
-    //   amount: totalAmount,
-    //   name: form.name,
-    //   email: form.email,
-    //   mobile: form.mobile,
-    // };
+    setLoading(true);
 
     const payload = {
       event_id: eventId,
@@ -315,106 +222,199 @@ export default function EventDetail() {
       year: form.year,
     };
 
-    // Step 1: Create Order on Laravel
-    const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const orderData = await orderRes.json();
+      const data = await response.json();
 
-    if (!orderData.success) {
-      alert("Order creation failed!");
-      return;
-    }
+      setLoading(false);
 
-    // Step 2: Open Razorpay popup
-    const options = {
-      key: orderData.key,
-      amount: totalAmount * 100,
-      currency: "INR",
-      name: "MAAN Event",
-      description: selectedPass.name,
-      order_id: orderData.order_id,
+      if (response.ok && data.success) {
+        console.log("data:", data)
+        setSuccessPopup(true);
 
-      handler: async function (response) {
-        // Step 3: Verify payment
-        const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+        //         const message =
+        //           `*Your Ticket Details*
 
-            // also send booking data to Laravel
-            event_id: eventId,
-            pass_id: selectedPass?.id,
-            pass_name: selectedPass?.name,
-            qty: selectedPass?.qty,
-            amount: totalAmount,
-            name: form.name,
-            email: form.email,
-            mobile: form.mobile,
-            jnv_state: form.jnv_state,
-            jnv: form.jnv,
-            year: form.year,
-          }),
+        // *Order ID:* ${data.orderId}
 
-        });
+        // *Name:* ${form.name}
+        // *Pass:* ${selectedPass?.name}
+        // *Quantity:* ${selectedPass?.qty}
+        // *Amount:* ₹${totalAmount}
+        // *Event:* ${event.title}
 
-        const verifyData = await verifyRes.json();
+        // Please pay cash at the ticket counter.
+        // Thank you!`;
 
-        if (verifyData.success) {
-          // alert("Payment successful!");
 
-          // Redirect or show success
-          setSuccessPopup(true);
-          const message = `
-            *Your Ticket Details*
+        //         const whatsappNumber = "91" + form.mobile;
 
-            *Order ID:* ${verifyData.orderId}
+        //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-            *Name:* ${form.name}
-            *Pass:* ${selectedPass?.name}
-            *Quantity:* ${selectedPass?.qty}
-            *Amount:* ₹${totalAmount}
-            *Event:* ${event.title}
-              Thank you for your booking!
-            `;
+        //         window.location.href = whatsappURL;
+        return;
+      }
 
-          const whatsappNumber = "91" + form.mobile;
-          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      if (response.status === 422) {
+        let message = "";
 
-          const link = document.createElement("a");
-          link.href = whatsappURL;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+        if (data.errors?.email) {
+          message = data.errors.email[0];
+        } else if (data.errors?.mobile) {
+          message = data.errors.mobile[0];
         } else {
-          alert("Payment failed!");
+          message = "Please check your input.";
         }
-      },
 
-      prefill: {
-        name: form.name,
-        email: form.email,
-        contact: form.mobile,
-      },
-      theme: { color: "#FFC107" },
-    };
+        setErrorPopup({ show: true, message });
+        return;
+      }
 
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+      setErrorPopup({
+        show: true,
+        message: data.message || "Something went wrong!"
+      });
+
+    } catch (error) {
+      setLoading(false);
+      console.error("Offline Booking Error:", error);
+      setErrorPopup({ show: true, message: "Failed to connect to server" });
+    }
   };
+
+  // const handleRazorpayPayment = async () => {
+  //   if (!validate()) return;
+
+  // const payload = {
+  //   event_id: eventId,
+  //   pass_id: selectedPass?.id,
+  //   pass_name: selectedPass?.name,
+  //   qty: selectedPass?.qty,
+  //   amount: totalAmount,
+  //   name: form.name,
+  //   email: form.email,
+  //   mobile: form.mobile,
+  // };
+
+  // const payload = {
+  //   event_id: eventId,
+  //   pass_id: selectedPass?.id,
+  //   pass_name: selectedPass?.name,
+  //   qty: selectedPass?.qty,
+  //   amount: totalAmount,
+  //   name: form.name,
+  //   email: form.email,
+  //   mobile: form.mobile,
+  //   jnv_state: form.jnv_state,
+  //   jnv: form.jnv,
+  //   year: form.year,
+  // };
+
+  // Step 1: Create Order on Laravel
+  // const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(payload),
+  // });
+
+  // const orderData = await orderRes.json();
+
+  // if (!orderData.success) {
+  //   alert("Order creation failed!");
+  //   return;
+  // }
+
+  // Step 2: Open Razorpay popup
+  // const options = {
+  //   key: orderData.key,
+  //   amount: totalAmount * 100,
+  //   currency: "INR",
+  //   name: "MAAN Event",
+  //   description: selectedPass.name,
+  //   order_id: orderData.order_id,
+
+  //   handler: async function (response) {
+  // Step 3: Verify payment
+  // const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({
+  //     ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+
+  // also send booking data to Laravel
+  //     event_id: eventId,
+  //     pass_id: selectedPass?.id,
+  //     pass_name: selectedPass?.name,
+  //     qty: selectedPass?.qty,
+  //     amount: totalAmount,
+  //     name: form.name,
+  //     email: form.email,
+  //     mobile: form.mobile,
+  //     jnv_state: form.jnv_state,
+  //     jnv: form.jnv,
+  //     year: form.year,
+  //   }),
+
+  // });
+
+  // const verifyData = await verifyRes.json();
+
+  // if (verifyData.success) {
+  // alert("Payment successful!");
+
+  // Redirect or show success
+  //         setSuccessPopup(true);
+  //         const message = `
+  //           *Your Ticket Details*
+
+  //           *Order ID:* ${verifyData.orderId}
+
+  //           *Name:* ${form.name}
+  //           *Pass:* ${selectedPass?.name}
+  //           *Quantity:* ${selectedPass?.qty}
+  //           *Amount:* ₹${totalAmount}
+  //           *Event:* ${event.title}
+  //             Thank you for your booking!
+  //           `;
+
+  //         const whatsappNumber = "91" + form.mobile;
+  //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+  //         const link = document.createElement("a");
+  //         link.href = whatsappURL;
+  //         link.target = "_blank";
+  //         link.rel = "noopener noreferrer";
+
+  //         document.body.appendChild(link);
+  //         link.click();
+  //         document.body.removeChild(link);
+  //       } else {
+  //         alert("Payment failed!");
+  //       }
+  //     },
+
+  //     prefill: {
+  //       name: form.name,
+  //       email: form.email,
+  //       contact: form.mobile,
+  //     },
+  //     theme: { color: "#FFC107" },
+  //   };
+
+  //   const rzp1 = new window.Razorpay(options);
+  //   rzp1.open();
+  // };
 
 
   return (
-    <div className="py-5 text-light bg-black" style={{ fontFamily: "Poppins, sans-serif" }}>
-      <div className="container mx-auto row g-4">
-
+    <div className="py-5 text-light bg-black navlay-top-view-add" style={{ fontFamily: "Poppins, sans-serif" }}>
+      <div className="container mx-auto row g-4 p-0">
+<div className="row g-4 mt-0 p-0">
         {/* LEFT SIDE */}
         <div className="col-12 col-lg-7">
           <h2 className="fw-bold text-warning">
@@ -483,9 +483,10 @@ export default function EventDetail() {
                       <button
                         className="btn btn-qty px-3"
                         disabled={
-                          (p.id === 1 && p.qty >= 1) ||
-                          (p.id === 3 && p.qty >= 4) ||
-                          (p.id !== 1 && p.id !== 3 && p.qty >= 4)
+                          (p.id === 1 && p.qty >= 2) ||    // Student pass max 2
+                          (p.id === 2 && p.qty >= 2) ||    // Adult pass max 2
+                          (p.id === 3 && p.qty >= 4) ||    // Family pass max 4
+                          (p.id === 4 && p.qty >= 2)       // Host pass max 2
                         }
                         onClick={(e) => {
                           e.stopPropagation();
@@ -648,20 +649,20 @@ export default function EventDetail() {
                   {errors.year && <div className="text-danger">{errors.year}</div>}
                 </div>
 
-                {/* <LoaderButton
+                <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleSubmitOffline}
                 >
                   Submit Details
-                </LoaderButton> */}
-                <LoaderButton
+                </LoaderButton>
+                {/* <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleRazorpayPayment}
                 >
                   Pay Now
-                </LoaderButton>
+                </LoaderButton> */}
 
 
               </div>
@@ -671,8 +672,14 @@ export default function EventDetail() {
 
           </motion.div>
           {/* TERMS & CONDITIONS */}
-          <div
-            className="mt-4 p-3 rounded-4 text-white"
+
+
+
+        </div>
+        </div>
+      </div>
+                <div
+            className="container mx-auto mb-8 row mt-4 p-3 rounded-4 text-white term-condition-add"
             style={{
               background: "rgba(255, 255, 255, 0.07)",
               border: "1px solid rgba(255,255,255,0.15)",
@@ -682,17 +689,29 @@ export default function EventDetail() {
             <h5 className="fw-bold mb-2">Terms & Conditions</h5>
 
             <ul className="ps-3 mb-0" style={{ lineHeight: "1.6" }}>
-              <li>All passes are <strong>non-refundable</strong>.</li>
-              <li>No extra members allowed beyond the limit of the selected pass.</li>
-              <li>
-                MAAN reserves the right to <strong>cancel any pass without refund</strong>&nbsp;
-                in case of rule violations or organizational requirements.
-              </li>
+              <li>Entry requires a valid ticket/pass and acceptance of these terms and ticket agent policies.</li>
+              <li>Security checks may be conducted, and admission may be refused at the Organiser’s discretion.</li>
+              <li>Please check tickets at the time of purchase — mistakes and lost tickets cannot be corrected or replaced.</li>
+              <li>Tickets are non-refundable and non-exchangeable. If government rules prevent attendance, tickets may be moved to a future event.</li>
+              <li>If you cannot attend due to unforeseen circumstances, a transfer may be considered at the Organiser’s discretion (no refunds).</li>
+              <li>Booking or transaction fees are strictly non-refundable.</li>
+              <li>If the Event is rescheduled or cancelled, tickets may be transferred or refunded (fees excluded).</li>
+              <li>The Organiser is not responsible for additional costs (travel, accommodation, etc.) arising from changes or cancellations.</li>
+              <li>Damaged, duplicated, or resold tickets are invalid. Ticket quantity limits may apply.</li>
+              <li>Event content, schedule, or lineup may change without eligibility for a refund.</li>
+              <li>Attendees must follow the Code of Conduct. Admission may be refused or individuals removed for safety concerns or inappropriate behaviour (including signs of infection).</li>
+              <li>The Organiser/venue is not liable for loss, injury, or damage unless legally proven negligent.</li>
+              <li>Outdoor events proceed in all weather conditions unless declared unsafe — no refunds for weather issues.</li>
+              <li>The Organiser is not responsible for loss or damage to personal belongings.</li>
+              <li>Visitors may be filmed or photographed for media, promotional, or security purposes.</li>
+              <li>Any content or items obtained at the Event must not be used for commercial purposes.</li>
+              <li>No animals allowed inside the venue, including pets.</li>
+              <li>Please check event timings, travel routes, and parking instructions — delays are not the Organiser’s responsibility.</li>
+              <li>Late entry into sessions is not guaranteed.</li>
+              <li>Recording inside performance areas is prohibited without written permission.</li>
+              <li>Alcohol is strictly prohibited inside the venue.</li>
             </ul>
           </div>
-
-        </div>
-      </div>
       {successPopup && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
@@ -716,14 +735,48 @@ export default function EventDetail() {
               <strong>Pay Cash on Ticket collection</strong>
             </p>
 
+            {/* SHARE MESSAGE */}
+            <div className="mt-3">
+              <p className="text-warning fw-bold mb-2">Share with your friends,<br />that you're going to attend NAVLAY 1.0</p>
+
+              <div className="d-flex flex-column gap-2">
+
+                {/* WHATSAPP SHARE */}
+                <button
+                  className="btn btn-success w-100 fw-bold"
+                  onClick={() => {
+                    const msg = `
+I just booked my pass for *${event.title}*!   
+
+You can also book your pass here:  
+ ${window.location.origin}
+          `;
+
+                    const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                  }}
+                >
+                  Share on WhatsApp
+                </button>
+              </div>
+            </div>
+
             <LoaderButton
               loading={loading}
-              className="btn btn-warning w-75 fw-bold mt-3"
+              className="btn btn-warning w-75 fw-bold mt-4"
               onClick={() => { setSuccessPopup(false); navigate("/") }}
             >
               OK
             </LoaderButton>
           </motion.div>
+
         </div>
       )}
       {errorPopup.show && (
