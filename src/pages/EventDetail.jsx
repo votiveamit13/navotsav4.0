@@ -204,9 +204,102 @@ export default function EventDetail() {
   //   }
   // };
 
-  const handleSubmitOffline = async () => {
+  //   const handleSubmitOffline = async () => {
+  //     if (!validate()) return;
+  //     setLoading(true);
+
+  //     const payload = {
+  //       event_id: eventId,
+  //       pass_id: selectedPass?.id,
+  //       pass_name: selectedPass?.name,
+  //       qty: selectedPass?.qty,
+  //       amount: totalAmount,
+  //       name: form.name,
+  //       email: form.email,
+  //       mobile: form.mobile,
+  //       jnv_state: form.jnv_state,
+  //       jnv: form.jnv,
+  //       year: form.year,
+  //     };
+
+  //     try {
+  //       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(payload),
+  //       });
+
+  //       const data = await response.json();
+
+  //       setLoading(false);
+
+  //       if (response.ok && data.success) {
+  //         console.log("data:", data)
+  //         setSuccessPopup(true);
+
+  //         const message =
+  //           `*Your Ticket Details*
+
+  // *Order ID:* ${data.orderId}
+
+  // *Name:* ${form.name}
+  // *Pass:* ${selectedPass?.name}
+  // *Quantity:* ${selectedPass?.qty}
+  // *Amount:* ₹${totalAmount}
+  // *Event:* ${event.title}
+
+  // Please pay cash at the ticket counter.
+  // Thank you!`;
+
+
+  //         const whatsappNumber = "91" + form.mobile;
+
+  //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+  //         window.location.href = whatsappURL;
+  //         return;
+  //       }
+
+  //       if (response.status === 422) {
+  //         let message = "";
+
+  //         if (data.errors?.email) {
+  //           message = data.errors.email[0];
+  //         } else if (data.errors?.mobile) {
+  //           message = data.errors.mobile[0];
+  //         } else {
+  //           message = "Please check your input.";
+  //         }
+
+  //         setErrorPopup({ show: true, message });
+  //         return;
+  //       }
+
+  //       setErrorPopup({
+  //         show: true,
+  //         message: data.message || "Something went wrong!"
+  //       });
+
+  //     } catch (error) {
+  //       setLoading(false);
+  //       console.error("Offline Booking Error:", error);
+  //       setErrorPopup({ show: true, message: "Failed to connect to server" });
+  //     }
+  //   };
+
+  const handleRazorpayPayment = async () => {
     if (!validate()) return;
-    setLoading(true);
+
+    // const payload = {
+    //   event_id: eventId,
+    //   pass_id: selectedPass?.id,
+    //   pass_name: selectedPass?.name,
+    //   qty: selectedPass?.qty,
+    //   amount: totalAmount,
+    //   name: form.name,
+    //   email: form.email,
+    //   mobile: form.mobile,
+    // };
 
     const payload = {
       event_id: eventId,
@@ -222,71 +315,100 @@ export default function EventDetail() {
       year: form.year,
     };
 
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+    // Step 1: Create Order on Laravel
+    const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      const data = await response.json();
+    const orderData = await orderRes.json();
 
-      setLoading(false);
-
-      if (response.ok && data.success) {
-        console.log("data:", data)
-        setSuccessPopup(true);
-
-        const message =
-          `*Your Ticket Details*
-
-*Order ID:* ${data.orderId}
-
-*Name:* ${form.name}
-*Pass:* ${selectedPass?.name}
-*Quantity:* ${selectedPass?.qty}
-*Amount:* ₹${totalAmount}
-*Event:* ${event.title}
-
-Please pay cash at the ticket counter.
-Thank you!`;
-
-
-        const whatsappNumber = "91" + form.mobile;
-
-        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-        window.location.href = whatsappURL;
-        return;
-      }
-
-      if (response.status === 422) {
-        let message = "";
-
-        if (data.errors?.email) {
-          message = data.errors.email[0];
-        } else if (data.errors?.mobile) {
-          message = data.errors.mobile[0];
-        } else {
-          message = "Please check your input.";
-        }
-
-        setErrorPopup({ show: true, message });
-        return;
-      }
-
-      setErrorPopup({
-        show: true,
-        message: data.message || "Something went wrong!"
-      });
-
-    } catch (error) {
-      setLoading(false);
-      console.error("Offline Booking Error:", error);
-      setErrorPopup({ show: true, message: "Failed to connect to server" });
+    if (!orderData.success) {
+      alert("Order creation failed!");
+      return;
     }
-  };
 
+    // Step 2: Open Razorpay popup
+    const options = {
+      key: orderData.key,
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "MAAN Event",
+      description: selectedPass.name,
+      order_id: orderData.order_id,
+
+      handler: async function (response) {
+        // Step 3: Verify payment
+        const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+
+            // also send booking data to Laravel
+            event_id: eventId,
+            pass_id: selectedPass?.id,
+            pass_name: selectedPass?.name,
+            qty: selectedPass?.qty,
+            amount: totalAmount,
+            name: form.name,
+            email: form.email,
+            mobile: form.mobile,
+            jnv_state: form.jnv_state,
+            jnv: form.jnv,
+            year: form.year,
+          }),
+
+        });
+
+        const verifyData = await verifyRes.json();
+
+        if (verifyData.success) {
+          // alert("Payment successful!");
+
+          // Redirect or show success
+          setSuccessPopup(true);
+          const message = `
+            *Your Ticket Details*
+
+            *Order ID:* ${verifyData.orderId}
+
+            *Name:* ${form.name}
+            *Pass:* ${selectedPass?.name}
+            *Quantity:* ${selectedPass?.qty}
+            *Amount:* ₹${totalAmount}
+            *Event:* ${event.title}
+              Thank you for your booking!
+            `;
+
+          const whatsappNumber = "91" + form.mobile;
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+          const link = document.createElement("a");
+          link.href = whatsappURL;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("Payment failed!");
+        }
+      },
+
+      prefill: {
+        name: form.name,
+        email: form.email,
+        contact: form.mobile,
+      },
+      theme: { color: "#FFC107" },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
 
   return (
@@ -526,12 +648,19 @@ Thank you!`;
                   {errors.year && <div className="text-danger">{errors.year}</div>}
                 </div>
 
-                <LoaderButton
+                {/* <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleSubmitOffline}
                 >
                   Submit Details
+                </LoaderButton> */}
+                <LoaderButton
+                  loading={loading}
+                  className="btn btn-warning w-100 fw-bold py-2 mt-2"
+                  onClick={handleRazorpayPayment}
+                >
+                  Pay Now
                 </LoaderButton>
 
 
