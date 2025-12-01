@@ -67,7 +67,7 @@ function App() {
           </Route>
         </Routes>
       </main>
-      <FloatingWhatsapp /> 
+      {/* <FloatingWhatsapp />  */}
       {/* <Footer /> */}
       <ToastContainer position="bottom-right" autoClose={3000} />
     </>
