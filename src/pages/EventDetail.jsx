@@ -43,6 +43,7 @@ export default function EventDetail() {
     2: "Professional pass for adult (for 1)",
     3: "Professional pass for family (family of 2)",
     4: "Host pass only for family (family of 4)",
+    // 5: "Dummy",
   };
 
   const JNV_LIST = {
@@ -263,38 +264,38 @@ const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
   //   }
   // };
 
-  const handleSubmitOffline = async () => {
-    if (!validate()) return;
-    setLoading(true);
+  // const handleSubmitOffline = async () => {
+  //   if (!validate()) return;
+  //   setLoading(true);
 
-    const payload = {
-      event_id: eventId,
-      pass_id: selectedPass?.id,
-      pass_name: selectedPass?.name,
-      qty: selectedPass?.qty,
-      amount: totalAmount,
-      name: form.name,
-      email: form.email,
-      mobile: form.mobile,
-      jnv_state: form.jnv_state,
-      jnv: form.jnv,
-      year: form.year,
-    };
+  //   const payload = {
+  //     event_id: eventId,
+  //     pass_id: selectedPass?.id,
+  //     pass_name: selectedPass?.name,
+  //     qty: selectedPass?.qty,
+  //     amount: totalAmount,
+  //     name: form.name,
+  //     email: form.email,
+  //     mobile: form.mobile,
+  //     jnv_state: form.jnv_state,
+  //     jnv: form.jnv,
+  //     year: form.year,
+  //   };
 
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+  //   try {
+  //     const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(payload),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      setLoading(false);
+  //     setLoading(false);
 
-      if (response.ok && data.success) {
-        console.log("data:", data)
-        setSuccessPopup(true);
+  //     if (response.ok && data.success) {
+  //       console.log("data:", data)
+  //       setSuccessPopup(true);
 
         //         const message =
         //           `*Your Ticket Details*
@@ -316,158 +317,158 @@ const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
         //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         //         window.location.href = whatsappURL;
-        return;
-      }
+  //       return;
+  //     }
 
-      if (response.status === 422) {
-        let message = "";
+  //     if (response.status === 422) {
+  //       let message = "";
 
-        if (data.errors?.email) {
-          message = data.errors.email[0];
-        } else if (data.errors?.mobile) {
-          message = data.errors.mobile[0];
-        } else {
-          message = "Please check your input.";
-        }
+  //       if (data.errors?.email) {
+  //         message = data.errors.email[0];
+  //       } else if (data.errors?.mobile) {
+  //         message = data.errors.mobile[0];
+  //       } else {
+  //         message = "Please check your input.";
+  //       }
 
-        setErrorPopup({ show: true, message });
-        return;
-      }
+  //       setErrorPopup({ show: true, message });
+  //       return;
+  //     }
 
-      setErrorPopup({
-        show: true,
-        message: data.message || "Something went wrong!"
-      });
+  //     setErrorPopup({
+  //       show: true,
+  //       message: data.message || "Something went wrong!"
+  //     });
 
-    } catch (error) {
-      setLoading(false);
-      console.error("Offline Booking Error:", error);
-      setErrorPopup({ show: true, message: "Failed to connect to server" });
-    }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.error("Offline Booking Error:", error);
+  //     setErrorPopup({ show: true, message: "Failed to connect to server" });
+  //   }
+  // };
+
+  const handleRazorpayPayment = async () => {
+    if (!validate()) return;
+
+  // const payload = {
+  //   event_id: eventId,
+  //   pass_id: selectedPass?.id,
+  //   pass_name: selectedPass?.name,
+  //   qty: selectedPass?.qty,
+  //   amount: totalAmount,
+  //   name: form.name,
+  //   email: form.email,
+  //   mobile: form.mobile,
+  // };
+
+  const payload = {
+    event_id: eventId,
+    pass_id: selectedPass?.id,
+    pass_name: selectedPass?.name,
+    qty: selectedPass?.qty,
+    amount: totalAmount,
+    name: form.name,
+    email: form.email,
+    mobile: form.mobile,
+    jnv_state: form.jnv_state,
+    jnv: form.jnv,
+    year: form.year,
   };
 
-  // const handleRazorpayPayment = async () => {
-  //   if (!validate()) return;
-
-  // const payload = {
-  //   event_id: eventId,
-  //   pass_id: selectedPass?.id,
-  //   pass_name: selectedPass?.name,
-  //   qty: selectedPass?.qty,
-  //   amount: totalAmount,
-  //   name: form.name,
-  //   email: form.email,
-  //   mobile: form.mobile,
-  // };
-
-  // const payload = {
-  //   event_id: eventId,
-  //   pass_id: selectedPass?.id,
-  //   pass_name: selectedPass?.name,
-  //   qty: selectedPass?.qty,
-  //   amount: totalAmount,
-  //   name: form.name,
-  //   email: form.email,
-  //   mobile: form.mobile,
-  //   jnv_state: form.jnv_state,
-  //   jnv: form.jnv,
-  //   year: form.year,
-  // };
-
   // Step 1: Create Order on Laravel
-  // const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(payload),
-  // });
+  const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
 
-  // const orderData = await orderRes.json();
+  const orderData = await orderRes.json();
 
-  // if (!orderData.success) {
-  //   alert("Order creation failed!");
-  //   return;
-  // }
+  if (!orderData.success) {
+    alert("Order creation failed!");
+    return;
+  }
 
   // Step 2: Open Razorpay popup
-  // const options = {
-  //   key: orderData.key,
-  //   amount: totalAmount * 100,
-  //   currency: "INR",
-  //   name: "MAAN Event",
-  //   description: selectedPass.name,
-  //   order_id: orderData.order_id,
+  const options = {
+    key: orderData.key,
+    amount: totalAmount * 100,
+    currency: "INR",
+    name: "MAAN Event",
+    description: selectedPass.name,
+    order_id: orderData.order_id,
 
-  //   handler: async function (response) {
+    handler: async function (response) {
   // Step 3: Verify payment
-  // const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({
-  //     ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+  const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
 
   // also send booking data to Laravel
-  //     event_id: eventId,
-  //     pass_id: selectedPass?.id,
-  //     pass_name: selectedPass?.name,
-  //     qty: selectedPass?.qty,
-  //     amount: totalAmount,
-  //     name: form.name,
-  //     email: form.email,
-  //     mobile: form.mobile,
-  //     jnv_state: form.jnv_state,
-  //     jnv: form.jnv,
-  //     year: form.year,
-  //   }),
+      event_id: eventId,
+      pass_id: selectedPass?.id,
+      pass_name: selectedPass?.name,
+      qty: selectedPass?.qty,
+      amount: totalAmount,
+      name: form.name,
+      email: form.email,
+      mobile: form.mobile,
+      jnv_state: form.jnv_state,
+      jnv: form.jnv,
+      year: form.year,
+    }),
 
-  // });
+  });
 
-  // const verifyData = await verifyRes.json();
+  const verifyData = await verifyRes.json();
 
-  // if (verifyData.success) {
+  if (verifyData.success) {
   // alert("Payment successful!");
 
   // Redirect or show success
-  //         setSuccessPopup(true);
-  //         const message = `
-  //           *Your Ticket Details*
+          setSuccessPopup(true);
+          const message = `
+            *Your Ticket Details*
 
-  //           *Order ID:* ${verifyData.orderId}
+            *Order ID:* ${verifyData.orderId}
 
-  //           *Name:* ${form.name}
-  //           *Pass:* ${selectedPass?.name}
-  //           *Quantity:* ${selectedPass?.qty}
-  //           *Amount:* ₹${totalAmount}
-  //           *Event:* ${event.title}
-  //             Thank you for your booking!
-  //           `;
+            *Name:* ${form.name}
+            *Pass:* ${selectedPass?.name}
+            *Quantity:* ${selectedPass?.qty}
+            *Amount:* ₹${totalAmount}
+            *Event:* ${event.title}
+              Thank you for your booking!
+            `;
 
-  //         const whatsappNumber = "91" + form.mobile;
-  //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+          const whatsappNumber = "91" + form.mobile;
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-  //         const link = document.createElement("a");
-  //         link.href = whatsappURL;
-  //         link.target = "_blank";
-  //         link.rel = "noopener noreferrer";
+          const link = document.createElement("a");
+          link.href = whatsappURL;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
 
-  //         document.body.appendChild(link);
-  //         link.click();
-  //         document.body.removeChild(link);
-  //       } else {
-  //         alert("Payment failed!");
-  //       }
-  //     },
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("Payment failed!");
+        }
+      },
 
-  //     prefill: {
-  //       name: form.name,
-  //       email: form.email,
-  //       contact: form.mobile,
-  //     },
-  //     theme: { color: "#FFC107" },
-  //   };
+      prefill: {
+        name: form.name,
+        email: form.email,
+        contact: form.mobile,
+      },
+      theme: { color: "#FFC107" },
+    };
 
-  //   const rzp1 = new window.Razorpay(options);
-  //   rzp1.open();
-  // };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
 
   return (
@@ -599,9 +600,9 @@ const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
 
             {!showForm && (
               <>
-                <p className="text-warning fw-semibold mt-3 mb-1" style={{ fontSize: "14px" }}>
+                {/* <p className="text-warning fw-semibold mt-3 mb-1" style={{ fontSize: "14px" }}>
                   <span className="text-danger">*</span> Pay Cash on Ticket collection
-                </p>
+                </p> */}
 
                 <LoaderButton
                   loading={loading}
@@ -771,20 +772,20 @@ const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
 </div>
 
 
-                <LoaderButton
+                {/* <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleSubmitOffline}
                 >
                   Submit Details
-                </LoaderButton>
-                {/* <LoaderButton
+                </LoaderButton> */}
+                <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleRazorpayPayment}
                 >
                   Pay Now
-                </LoaderButton> */}
+                </LoaderButton>
 
 
               </div>
@@ -854,7 +855,7 @@ const years = Array.from({ length: 2025 - 1993 + 1 }, (_, i) => 1993 + i);
             <h3 className="text-success fw-bold mb-2">Success</h3>
             <p className="text-white fs-5">
               Your pass is booked. <br />
-              <strong>Pay Cash on Ticket collection</strong>
+              {/* <strong>Pay Cash on Ticket collection</strong> */}
             </p>
 
             {/* SHARE MESSAGE */}
