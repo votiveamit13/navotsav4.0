@@ -359,6 +359,7 @@ export default function EventDetail() {
     if (!validate()) return;
 
     const payload = {
+      mode: "new",
       event_id: eventId,
       pass_id: selectedPass?.id,
       pass_name: selectedPass?.name,
@@ -379,7 +380,25 @@ export default function EventDetail() {
       body: JSON.stringify(payload),
     });
 
+
     const orderData = await orderRes.json();
+
+    if (orderRes.status === 422) {
+      let msg = "";
+
+      if (orderData.errors.email) {
+        msg = orderData.errors.email[0];
+      } else if (orderData.errors.mobile) {
+        msg = orderData.errors.mobile[0];
+      } else {
+        msg = "Validation failed";
+      }
+
+      setErrorPopup({ show: true, message: msg });
+      setLoading(false);
+      return;
+    }
+
 
     if (!orderData.success) {
       alert("Order creation failed!");
@@ -508,6 +527,7 @@ export default function EventDetail() {
 
     // Payload from existing booking
     const payload = {
+      mode: "existing",
       booking_id: bookingData.id,
       event_id: bookingData.event_id,
       pass_id: bookingData.pass_id,
@@ -553,6 +573,17 @@ export default function EventDetail() {
           body: JSON.stringify({
             ...response,
             booking_id: bookingData.id,
+            event_id: bookingData.event_id,
+            pass_id: bookingData.pass_id,
+            pass_name: bookingData.pass_name,
+            qty: bookingData.qty,
+            amount: bookingData.amount,
+            name: bookingData.user_name,
+            email: bookingData.email,
+            mobile: bookingData.mobile,
+            jnv_state: bookingData.jnv_state,
+            jnv: bookingData.jnv,
+            year: bookingData.year,
           }),
         });
 
