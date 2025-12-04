@@ -670,7 +670,7 @@ export default function EventDetail() {
                       cursor: "pointer",
                     }}
                   >
-                    <div className="d-flex justify-content-start">
+                    {/* <div className="d-flex justify-content-start">
                       <input
                         type="radio"
                         checked={selectedPassId === p.id}
@@ -683,7 +683,41 @@ export default function EventDetail() {
 
                         <small className="text-warning fw-bold">₹{p.price}</small>
                       </div>
+                    </div> */}
+
+                    <div className="d-flex justify-content-between align-items-center w-100">
+                      <div className="d-flex align-items-start">
+                        <input
+                          type="radio"
+                          checked={selectedPassId === p.id}
+                          onChange={() => handleSelect(p.id)}
+                          style={{ width: "20px", height: "20px" }}
+                        />
+
+                        <div className="ms-3">
+                          <h5 className="mb-0 fs-6 fs-md-5">{p.name}</h5>
+                          <small className="text-warning fw-bold">₹{p.price}</small>
+                        </div>
+                      </div>
+
+                     {(p.id == 1 || p.id == 3) && <motion.span
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="px-3 py-1"
+                        style={{
+                          background: "#ff3b30",
+                          color: "white",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        🔥 Filling Fast
+                      </motion.span>}
                     </div>
+
 
                     {selectedPassId === p.id ? (
                       <div className="d-flex align-items-center gap-2">
