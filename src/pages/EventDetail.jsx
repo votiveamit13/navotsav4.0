@@ -486,151 +486,151 @@ export default function EventDetail() {
     rzp1.open();
   };
 
-  const handleSearchPass = async () => {
-    setErrorMessage("");
-    setBookingData(null);
+  // const handleSearchPass = async () => {
+  //   setErrorMessage("");
+  //   setBookingData(null);
 
-    if (!searchMobile) {
-      setErrorMessage("Please enter mobile number");
-      return;
-    }
+  //   if (!searchMobile) {
+  //     setErrorMessage("Please enter mobile number");
+  //     return;
+  //   }
 
-    try {
-      const res = await fetch("https://maan-backend.votivereact.in/api/get-pass", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mobile: searchMobile,
-        }),
-      });
+  //   try {
+  //     const res = await fetch("https://maan-backend.votivereact.in/api/get-pass", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         mobile: searchMobile,
+  //       }),
+  //     });
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      if (!data.success || !data.booking) {
-        setErrorMessage("No pass found for this mobile number");
-        return;
-      }
+  //     if (!data.success || !data.booking) {
+  //       setErrorMessage("No pass found for this mobile number");
+  //       return;
+  //     }
 
-      // Data received → update UI
-      setBookingData(data.booking);
+  //     // Data received → update UI
+  //     setBookingData(data.booking);
 
-    } catch (err) {
-      setErrorMessage("Something went wrong. Try again.");
-    }
-  };
+  //   } catch (err) {
+  //     setErrorMessage("Something went wrong. Try again.");
+  //   }
+  // };
 
 
-  const handleRazorpayPaymentExistingBooking = async () => {
-    if (!bookingData) return;
+  // const handleRazorpayPaymentExistingBooking = async () => {
+  //   if (!bookingData) return;
 
-    // Payload from existing booking
-    const payload = {
-      mode: "existing",
-      booking_id: bookingData.id,
-      event_id: bookingData.event_id,
-      pass_id: bookingData.pass_id,
-      pass_name: bookingData.pass_name,
-      qty: bookingData.qty,
-      amount: bookingData.amount,
-      name: bookingData.user_name,
-      email: bookingData.email,
-      mobile: bookingData.mobile,
-      jnv_state: bookingData.jnv_state,
-      jnv: bookingData.jnv,
-      year: bookingData.year,
-    };
+  //   // Payload from existing booking
+  //   const payload = {
+  //     mode: "existing",
+  //     booking_id: bookingData.id,
+  //     event_id: bookingData.event_id,
+  //     pass_id: bookingData.pass_id,
+  //     pass_name: bookingData.pass_name,
+  //     qty: bookingData.qty,
+  //     amount: bookingData.amount,
+  //     name: bookingData.user_name,
+  //     email: bookingData.email,
+  //     mobile: bookingData.mobile,
+  //     jnv_state: bookingData.jnv_state,
+  //     jnv: bookingData.jnv,
+  //     year: bookingData.year,
+  //   };
 
-    // Step 1: Create Razorpay Order from server
-    const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+  //   // Step 1: Create Razorpay Order from server
+  //   const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(payload),
+  //   });
 
-    const orderData = await orderRes.json();
+  //   const orderData = await orderRes.json();
 
-    if (!orderData.success) {
-      alert("Order creation failed!");
-      return;
-    }
+  //   if (!orderData.success) {
+  //     alert("Order creation failed!");
+  //     return;
+  //   }
 
-    // Step 2: Razorpay Popup
-    const options = {
-      key: orderData.key,
-      amount: bookingData.amount * 100,
-      currency: "INR",
-      name: "NAVLAY 1.0",
-      description: bookingData.pass_name,
-      order_id: orderData.order_id,
+  //   // Step 2: Razorpay Popup
+  //   const options = {
+  //     key: orderData.key,
+  //     amount: bookingData.amount * 100,
+  //     currency: "INR",
+  //     name: "NAVLAY 1.0",
+  //     description: bookingData.pass_name,
+  //     order_id: orderData.order_id,
 
-      handler: async function (response) {
-        // Step 3: Verify payment
-        const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...response,
-            booking_id: bookingData.id,
-            event_id: bookingData.event_id,
-            pass_id: bookingData.pass_id,
-            pass_name: bookingData.pass_name,
-            qty: bookingData.qty,
-            amount: bookingData.amount,
-            name: bookingData.user_name,
-            email: bookingData.email,
-            mobile: bookingData.mobile,
-            jnv_state: bookingData.jnv_state,
-            jnv: bookingData.jnv,
-            year: bookingData.year,
-          }),
-        });
+  //     handler: async function (response) {
+  //       // Step 3: Verify payment
+  //       const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           ...response,
+  //           booking_id: bookingData.id,
+  //           event_id: bookingData.event_id,
+  //           pass_id: bookingData.pass_id,
+  //           pass_name: bookingData.pass_name,
+  //           qty: bookingData.qty,
+  //           amount: bookingData.amount,
+  //           name: bookingData.user_name,
+  //           email: bookingData.email,
+  //           mobile: bookingData.mobile,
+  //           jnv_state: bookingData.jnv_state,
+  //           jnv: bookingData.jnv,
+  //           year: bookingData.year,
+  //         }),
+  //       });
 
-        const verifyData = await verifyRes.json();
+  //       const verifyData = await verifyRes.json();
 
-        if (verifyData.success) {
-          setSuccessPopup(true);
+  //       if (verifyData.success) {
+  //         setSuccessPopup(true);
 
-          const message = `
-            *Your Ticket Details*
+  //         const message = `
+  //           *Your Ticket Details*
 
-            *Order ID:* ${verifyData.orderId}
+  //           *Order ID:* ${verifyData.orderId}
 
-            *Name:* ${bookingData.user_name}
-            *Pass:* ${bookingData.pass_name}
-            *Quantity:* ${bookingData.qty}
-            *Amount:* ₹${bookingData.amount}
-            *Event:* NAVLAY 1.0  
-             Thank you for your booking! `;
+  //           *Name:* ${bookingData.user_name}
+  //           *Pass:* ${bookingData.pass_name}
+  //           *Quantity:* ${bookingData.qty}
+  //           *Amount:* ₹${bookingData.amount}
+  //           *Event:* NAVLAY 1.0  
+  //            Thank you for your booking! `;
 
-          const whatsappNumber = "91" + bookingData.mobile;
-          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  //         const whatsappNumber = "91" + bookingData.mobile;
+  //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-          const link = document.createElement("a");
-          link.href = whatsappURL;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
+  //         const link = document.createElement("a");
+  //         link.href = whatsappURL;
+  //         link.target = "_blank";
+  //         link.rel = "noopener noreferrer";
 
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          alert("Payment failed!");
-        }
-      },
+  //         document.body.appendChild(link);
+  //         link.click();
+  //         document.body.removeChild(link);
+  //       } else {
+  //         alert("Payment failed!");
+  //       }
+  //     },
 
-      prefill: {
-        name: bookingData.user_name,
-        email: bookingData.email,
-        contact: bookingData.mobile,
-      },
-      theme: { color: "#FFC107" },
-    };
+  //     prefill: {
+  //       name: bookingData.user_name,
+  //       email: bookingData.email,
+  //       contact: bookingData.mobile,
+  //     },
+  //     theme: { color: "#FFC107" },
+  //   };
 
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  };
+  //   const rzp1 = new window.Razorpay(options);
+  //   rzp1.open();
+  // };
 
 
 
@@ -1135,7 +1135,7 @@ You can also book your pass here:
       )}
 
 
-      {showPaymentPopup && (
+      {/* {showPaymentPopup && (
         <div className="popup-overlay">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -1143,8 +1143,7 @@ You can also book your pass here:
             className="popup-container"
           >
             <h3 className="text-center text-black mb-3">Search Your Pass</h3>
-
-            {/* Search Box */}
+       
             <input
               type="text"
               className="form-control mb-3"
@@ -1160,15 +1159,12 @@ You can also book your pass here:
               Search
             </button>
 
-            {/* If Error */}
             {errorMessage && (
               <p className="text-danger text-center mt-2">{errorMessage}</p>
             )}
 
 
 
-
-            {/* Booking Result */}
             {bookingData && (
               <div className="pass-details mt-3">
                 <h5 className="text-black">Pass Details</h5>
@@ -1195,7 +1191,6 @@ You can also book your pass here:
               </div>
             )}
 
-            {/* Close Button */}
             <button
               className="btn btn-danger w-100 mt-4"
               onClick={() => setShowPaymentPopup(false)}
@@ -1220,7 +1215,7 @@ You can also book your pass here:
           gap: "8px",
         }}
       >
-        {/* 🔥 Animated Limited Seats text */}
+       
         <motion.span
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ repeat: Infinity, duration: 1.8 }}
@@ -1234,7 +1229,7 @@ You can also book your pass here:
           Already booked the pass?
         </motion.span>
 
-        {/* 🟡 Floating Pay Now button */}
+   
         <motion.button
           onClick={() => setShowPaymentPopup(true)}
           whileHover={{ scale: 1.15, rotateZ: -5 }}
@@ -1252,7 +1247,7 @@ You can also book your pass here:
         >
           Pay Now Online
         </motion.button>
-      </div>
+      </div> */}
 
 
     </div>

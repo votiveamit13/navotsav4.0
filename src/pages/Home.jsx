@@ -9,6 +9,11 @@ export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
 
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+  const [searchMobile, setSearchMobile] = useState("");
+  const [bookingData, setBookingData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
@@ -73,6 +78,152 @@ export default function HomePage() {
   //     navigate("/event-detail", { state: { event: eventId } });
   //   };
 
+  const handleSearchPass = async () => {
+    setErrorMessage("");
+    setBookingData(null);
+
+    if (!searchMobile) {
+      setErrorMessage("Please enter mobile number");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://maan-backend.votivereact.in/api/get-pass", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          mobile: searchMobile,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!data.success || !data.booking) {
+        setErrorMessage("No pass found for this mobile number");
+        return;
+      }
+
+      // Data received → update UI
+      setBookingData(data.booking);
+
+    } catch (err) {
+      setErrorMessage("Something went wrong. Try again.");
+    }
+  };
+
+
+  const handleRazorpayPaymentExistingBooking = async () => {
+    if (!bookingData) return;
+
+    // Payload from existing booking
+    const payload = {
+      mode: "existing",
+      booking_id: bookingData.id,
+      event_id: bookingData.event_id,
+      pass_id: bookingData.pass_id,
+      pass_name: bookingData.pass_name,
+      qty: bookingData.qty,
+      amount: bookingData.amount,
+      name: bookingData.user_name,
+      email: bookingData.email,
+      mobile: bookingData.mobile,
+      jnv_state: bookingData.jnv_state,
+      jnv: bookingData.jnv,
+      year: bookingData.year,
+    };
+
+    // Step 1: Create Razorpay Order from server
+    const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const orderData = await orderRes.json();
+
+    if (!orderData.success) {
+      alert("Order creation failed!");
+      return;
+    }
+
+    // Step 2: Razorpay Popup
+    const options = {
+      key: orderData.key,
+      amount: bookingData.amount * 100,
+      currency: "INR",
+      name: "NAVLAY 1.0",
+      description: bookingData.pass_name,
+      order_id: orderData.order_id,
+
+      handler: async function (response) {
+        // Step 3: Verify payment
+        const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...response,
+            booking_id: bookingData.id,
+            event_id: bookingData.event_id,
+            pass_id: bookingData.pass_id,
+            pass_name: bookingData.pass_name,
+            qty: bookingData.qty,
+            amount: bookingData.amount,
+            name: bookingData.user_name,
+            email: bookingData.email,
+            mobile: bookingData.mobile,
+            jnv_state: bookingData.jnv_state,
+            jnv: bookingData.jnv,
+            year: bookingData.year,
+          }),
+        });
+
+        const verifyData = await verifyRes.json();
+
+        if (verifyData.success) {
+          setSuccessPopup(true);
+
+          const message = `
+            *Your Ticket Details*
+
+            *Order ID:* ${verifyData.orderId}
+
+            *Name:* ${bookingData.user_name}
+            *Pass:* ${bookingData.pass_name}
+            *Quantity:* ${bookingData.qty}
+            *Amount:* ₹${bookingData.amount}
+            *Event:* NAVLAY 1.0  
+             Thank you for your booking! `;
+
+          const whatsappNumber = "91" + bookingData.mobile;
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+          const link = document.createElement("a");
+          link.href = whatsappURL;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("Payment failed!");
+        }
+      },
+
+      prefill: {
+        name: bookingData.user_name,
+        email: bookingData.email,
+        contact: bookingData.mobile,
+      },
+      theme: { color: "#FFC107" },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
   return (
     <div
       className="bg-dark text-light"
@@ -94,11 +245,16 @@ export default function HomePage() {
         <motion.span
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ repeat: Infinity, duration: 1.8 }}
-          className="fw-bold"
-          style={{ color: "#ffcc00", fontSize: "18px", textShadow: "0 0 10px #ffcc00" }}
+          className="fw-bold floating-text"
+          style={{
+            color: "#ffcc00",
+            textShadow: "0 0 10px #ffcc00",
+          }}
         >
           Limited Seats!
         </motion.span>
+
+
       </motion.div>
       {events.length > 0 ? (
         events.map((event, index) => (
@@ -107,7 +263,7 @@ export default function HomePage() {
             key={event.id}
             whileHover={{ scale: 1.15, rotateZ: -5 }}
             whileTap={{ scale: 0.95 }}
-            className="position-fixed"
+            className="position-fixed floating-btn-right"
             style={{
               bottom: "25px",
               right: "25px",
@@ -123,6 +279,7 @@ export default function HomePage() {
           >
             Book Now
           </motion.button>
+
         ))
       ) : (
         <p className="text-center">No events found</p>
@@ -495,9 +652,9 @@ export default function HomePage() {
       </section>
 
       <section className="py-5 text-center" style={{ background: "#080808" }}>
-<h2 className="text-warning fw-bold mb-4 display-0 display-md-6">
-  Countdown to NAVLAY 1.0
-</h2>
+        <h2 className="text-warning fw-bold mb-4 display-0 display-md-6">
+          Countdown to NAVLAY 1.0
+        </h2>
 
 
         <div className="d-flex justify-content-center gap-2 gap-md-4 px-2 px-md-0 flex-nowrap flex-md-wrap">
@@ -588,12 +745,12 @@ export default function HomePage() {
 
             <div className="small">Phoenix Citadel</div> */}
               </div>
-                <div className="d-flex align-items-center text-white justify-content-center flex-wrap gap-3 mb-3">
-                  <Link href="/" className="text-white text-decoration-none">Home</Link>
-                                    {/* <Link href="">NAVLAY 1.0</Link> */}
-                                    <Link to="/privacy-policy" className="text-white text-decoration-none">Privacy Policy</Link>
+              <div className="d-flex align-items-center text-white justify-content-center flex-wrap gap-3 mb-3">
+                <Link href="/" className="text-white text-decoration-none">Home</Link>
+                {/* <Link href="">NAVLAY 1.0</Link> */}
+                <Link to="/privacy-policy" className="text-white text-decoration-none">Privacy Policy</Link>
 
-                </div>
+              </div>
               <p className="text-secondary small mb-0">
                 © 2025 NAVLAY 1.0. All rights reserved.
               </p>
@@ -612,6 +769,126 @@ export default function HomePage() {
       pointer-events: none;
     }
       `}</style>
+
+
+
+      {showPaymentPopup && (
+        <div className="popup-overlay">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="popup-container"
+          >
+            <h3 className="text-center text-black mb-3">Search Your Pass</h3>
+
+            {/* Search Box */}
+            <input
+              type="text"
+              className="form-control mb-3"
+              placeholder="Enter Mobile Number"
+              value={searchMobile}
+              onChange={(e) => setSearchMobile(e.target.value)}
+            />
+
+            <button
+              className="btn btn-warning w-100 fw-bold"
+              onClick={handleSearchPass}
+            >
+              Search
+            </button>
+
+            {/* If Error */}
+            {errorMessage && (
+              <p className="text-danger text-center mt-2">{errorMessage}</p>
+            )}
+
+
+
+
+            {/* Booking Result */}
+            {bookingData && (
+              <div className="pass-details mt-3">
+                <h5 className="text-black">Pass Details</h5>
+
+                <input className="form-control mb-2" value={bookingData.id} disabled />
+                <input className="form-control mb-2" value={bookingData.user_name} disabled />
+                <input className="form-control mb-2" value={bookingData.email} disabled />
+                <input className="form-control mb-2" value={bookingData.mobile} disabled />
+                <input className="form-control mb-2" value={bookingData.pass_name} disabled />
+                <input className="form-control mb-2" value={bookingData.qty} disabled />
+                <input className="form-control mb-2" value={bookingData.amount} disabled />
+
+
+                {bookingData.payment_status === "pending" ? (
+                  <button
+                    className="btn btn-success w-100 mt-3 fw-bold"
+                    onClick={handleRazorpayPaymentExistingBooking}
+                  >
+                    Pay Now
+                  </button>
+                ) : (
+                  <p className="text-success fw-bold mt-2">Payment Already Completed</p>
+                )}
+              </div>
+            )}
+
+            {/* Close Button */}
+            <button
+              className="btn btn-danger w-100 mt-4"
+              onClick={() => setShowPaymentPopup(false)}
+            >
+              Close
+            </button>
+          </motion.div>
+        </div>
+      )}
+
+
+
+      <div
+        className="position-fixed floating-left-wrapper"
+        style={{
+          bottom: "25px",
+          left: "25px",
+          zIndex: 9999,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "8px",
+        }}
+      >
+        <motion.span
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ repeat: Infinity, duration: 1.8 }}
+          className="fw-bold floating-text"
+          style={{
+            color: "#ffcc00",
+            textShadow: "0 0 10px #ffcc00",
+          }}
+        >
+          Already booked the pass?
+        </motion.span>
+
+
+        <motion.button
+          onClick={() => setShowPaymentPopup(true)}
+          whileHover={{ scale: 1.15, rotateZ: -5 }}
+          whileTap={{ scale: 0.95 }}
+          className="fw-bold floating-btn-left"
+          style={{
+            padding: "15px 30px",
+            borderRadius: "50px",
+            background: "linear-gradient(135deg, #ffcc00 0%, #ff8800 100%)",
+            boxShadow: "0 10px 30px rgba(255, 200, 0, 0.4)",
+            color: "#000",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Pay Now Online
+        </motion.button>
+      </div>
+
     </div>
   );
 }
