@@ -579,37 +579,59 @@ export default function HomePage() {
       </section>
 
       <section
-        id="event"
-        className="text-center py-5"
-        style={{
-          background: "linear-gradient(180deg, #000 20%, #111 80%)",
-          perspective: "800px",
-        }}
-      >
-        <motion.h2
-          className="display-5 fw-bold text-warning mb-3"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          Event Date
-        </motion.h2>
+  id="event"
+  className="text-center py-5"
+  style={{
+    background: "linear-gradient(180deg, #000 20%, #111 80%)",
+    perspective: "800px",
+  }}
+>
+  <motion.h2
+    className="display-5 fw-bold text-warning mb-3"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+  >
+    Event Date
+  </motion.h2>
 
-        <motion.h1
-          initial={{ opacity: 0, rotateX: -90 }}
-          whileInView={{ opacity: 1, rotateX: 0 }}
-          transition={{ duration: 1 }}
-          className="display-2 fw-bold"
-          style={{ transformOrigin: "top center" }}
-        >
-          20 December 2025
-        </motion.h1>
+  <motion.h1
+    initial={{ opacity: 0, rotateX: -90 }}
+    whileInView={{ opacity: 1, rotateX: 0 }}
+    transition={{ duration: 1 }}
+    className="display-2 fw-bold"
+    style={{ transformOrigin: "top center" }}
+  >
+    20 December 2025
+  </motion.h1>
 
-        <p className="fs-4 mt-3 text-secondary">
-          Venue: <span className="text-warning">Phoenix Citadel, Indore</span>
-        </p>
-        <p>Come & Enjoy • Commercial Apply</p>
-      </section>
+  <p className="fs-4 mt-3 text-secondary">
+    Venue: <span className="text-warning">Phoenix Citadel, Indore</span>
+  </p>
+  <p>Come & Enjoy • Commercial Apply</p>
+
+  {/* ---------- ADDED EVENT TIMINGS ---------- */}
+  <motion.div
+    className="mt-4"
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+  >
+    <h4 className="text-warning fw-bold mb-3">Event Schedule</h4>
+
+    <p className="fs-5 text-light mb-1">
+      <span className="text-warning fw-bold">02:00 PM – 06:00 PM:</span>{" "}
+      Alumni Meet
+    </p>
+
+    <p className="fs-5 text-light">
+      <span className="text-warning fw-bold">06:00 PM – 09:30 PM:</span>{" "}
+      Main Stage Experience
+    </p>
+  </motion.div>
+  {/* ---------- END OF TIMINGS ---------- */}
+</section>
+
 
       <section className="container text-center py-5">
         <h2 className="fw-bold text-warning mb-4 display-0 display-md-6">

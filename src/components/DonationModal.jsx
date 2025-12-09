@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const DonationModal = ({ open, setOpen }) => {
+const DonationModal = ({ open, setOpen, prefill = null }) => {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -9,6 +9,17 @@ const DonationModal = ({ open, setOpen }) => {
     phone: "",
     amount: "",
   });
+
+    useEffect(() => {
+    if (open) {
+      setForm({
+        name: prefill?.name || "",
+        emailid: prefill?.emailid || "",
+        phone: prefill?.phone || "",
+        amount: "",
+      });
+    }
+  }, [open, prefill]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -98,12 +109,13 @@ handler: async function (response) {
 
 
         <div className="modal-content p-3 rounded shadow-lg">
-          <h4 className="mb-3 text-center">Donate Now</h4>
+          <h4 className="mb-3 text-center text-black">Donate Now</h4>
 
           <input
             name="name"
             className="form-control mb-2"
             placeholder="Name"
+            value={form.name}
             onChange={handleChange}
           />
 
@@ -112,6 +124,7 @@ handler: async function (response) {
             type="email"
             className="form-control mb-2"
             placeholder="Email ID"
+            value={form.emailid}
             onChange={handleChange}
           />
 
@@ -119,6 +132,7 @@ handler: async function (response) {
             name="phone"
             className="form-control mb-2"
             placeholder="Mobile Number"
+            value={form.phone}
             onChange={handleChange}
           />
 
@@ -128,6 +142,7 @@ handler: async function (response) {
             min="1"
             className="form-control mb-2"
             placeholder="Amount to Donate"
+            value={form.amount}
             onChange={handleChange}
           />
 

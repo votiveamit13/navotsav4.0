@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { eventDetail } from "../services/EventService";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoaderButton from "../components/Loader";
+import DonationModal from "../components/DonationModal";
 
 export default function EventDetail() {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,13 @@ export default function EventDetail() {
   const [bookingData, setBookingData] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
+const [showDonatePrompt, setShowDonatePrompt] = useState(false);
+const [showDonationModal, setShowDonationModal] = useState(false);
+const [donationPrefill, setDonationPrefill] = useState({
+  name: "",
+  emailid: "",
+  phone: ""
+});
 
 
   const location = useLocation();
@@ -303,12 +311,18 @@ const selectedPassName = "Registration"
 
       setLoading(false);
 
-      if (response.ok && data.success) {
-        console.log("data:", data)
-        setSuccessPopup(true);
+if (response.ok && data.success) {
+  // Instead of showing success → ask for donation
+  setDonationPrefill({
+    name: form.name,
+    emailid: form.email,
+    phone: form.mobile
+  });
 
-        return;
-      }
+  setShowDonatePrompt(true);
+  return;
+}
+
 
       if (response.status === 422) {
         let message = "";
@@ -902,6 +916,57 @@ You can also register from here:
           <div className="modal-backdrop fade show"></div>
         </>
       )}
+
+      {showDonatePrompt && (
+  <div 
+    className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style={{ background: "rgba(0,0,0,0.6)", zIndex: 9999 }}
+  >
+    <motion.div
+      initial={{ scale: 0.7, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      className="p-4 rounded-4 text-center"
+      style={{
+        width: "90%",
+        maxWidth: "400px",
+        background: "white",
+        color: "black",
+        borderRadius: "12px"
+      }}
+    >
+      <h3 className="fw-bold mb-2">Would you like to donate?</h3>
+      <p>Your support helps us organize a better event.</p>
+
+      <div className="d-flex gap-3 mt-4 justify-content-center">
+        <button
+          className="btn btn-success px-4"
+          onClick={() => {
+            setShowDonatePrompt(false);
+            setShowDonationModal(true);
+          }}
+        >
+          Yes
+        </button>
+
+        <button
+          className="btn btn-danger px-4"
+          onClick={() => {
+            setShowDonatePrompt(false);
+            setSuccessPopup(true);
+          }}
+        >
+          No
+        </button>
+      </div>
+    </motion.div>
+  </div>
+)}
+<DonationModal 
+  open={showDonationModal} 
+  setOpen={setShowDonationModal} 
+  prefill={donationPrefill}
+/>
+
 
 
       {/* {showPaymentPopup && (
