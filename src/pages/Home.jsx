@@ -277,7 +277,8 @@ export default function HomePage() {
               transform: `translateZ(50px)`,
             }}
           >
-            Book Now
+            {/* Book Now */}
+            Register Now
           </motion.button>
 
         ))
@@ -779,8 +780,8 @@ export default function HomePage() {
             animate={{ scale: 1, opacity: 1 }}
             className="popup-container"
           >
-            <h3 className="text-center text-black mb-3">Search Your Pass</h3>
-
+            {/* <h3 className="text-center text-black mb-3">Search Your Pass</h3> */}
+            <h3 className="text-center text-black mb-3">Search Your Registration</h3>
             {/* Search Box */}
             <input
               type="text"
@@ -815,11 +816,11 @@ export default function HomePage() {
                 <input className="form-control mb-2" value={bookingData.email} disabled />
                 <input className="form-control mb-2" value={bookingData.mobile} disabled />
                 <input className="form-control mb-2" value={bookingData.pass_name} disabled />
-                <input className="form-control mb-2" value={bookingData.qty} disabled />
-                <input className="form-control mb-2" value={bookingData.amount} disabled />
+                {/* <input className="form-control mb-2" value={bookingData.qty} disabled /> */}
+                {/* <input className="form-control mb-2" value={bookingData.amount} disabled /> */}
 
 
-                {bookingData.payment_status === "pending" ? (
+                {/* {bookingData.payment_status === "pending" ? (
                   <button
                     className="btn btn-success w-100 mt-3 fw-bold"
                     onClick={handleRazorpayPaymentExistingBooking}
@@ -828,7 +829,7 @@ export default function HomePage() {
                   </button>
                 ) : (
                   <p className="text-success fw-bold mt-2">Payment Already Completed</p>
-                )}
+                )} */}
               </div>
             )}
 
@@ -866,7 +867,8 @@ export default function HomePage() {
             textShadow: "0 0 10px #ffcc00",
           }}
         >
-          Already booked the pass?
+          {/* Already booked the pass? */}
+          Already registered?
         </motion.span>
 
 
@@ -885,7 +887,8 @@ export default function HomePage() {
             cursor: "pointer",
           }}
         >
-          Pay Now Online
+          {/* Pay Now Online */}
+          Check Now
         </motion.button>
       </div>
 

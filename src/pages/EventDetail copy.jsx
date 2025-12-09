@@ -271,78 +271,12 @@ export default function EventDetail() {
   //     console.error("Payment error:", err);
   //   }
   // };
-const selectedTicketId = 5;
-const selectedPassName = "Registration"
 
-  const handleSubmitOffline = async () => {
-    if (!validate()) return;
-    setLoading(true);
-
-    const payload = {
-      event_id: eventId,
-      pass_id: selectedTicketId,
-      pass_name: selectedPassName,
-      // qty: selectedPass?.qty,
-      // amount: totalAmount,
-      name: form.name,
-      email: form.email,
-      mobile: form.mobile,
-      jnv_state: form.jnv_state,
-      jnv: form.jnv,
-      year: form.year,
-    };
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      setLoading(false);
-
-      if (response.ok && data.success) {
-        console.log("data:", data)
-        setSuccessPopup(true);
-
-        return;
-      }
-
-      if (response.status === 422) {
-        let message = "";
-
-        if (data.errors?.email) {
-          message = data.errors.email[0];
-        } else if (data.errors?.mobile) {
-          message = data.errors.mobile[0];
-        } else {
-          message = "Please check your input.";
-        }
-
-        setErrorPopup({ show: true, message });
-        return;
-      }
-
-      setErrorPopup({
-        show: true,
-        message: data.message || "Something went wrong!"
-      });
-
-    } catch (error) {
-      setLoading(false);
-      console.error("Offline Booking Error:", error);
-      setErrorPopup({ show: true, message: "Failed to connect to server" });
-    }
-  };
-
-
-  // const handleRazorpayPayment = async () => {
+  // const handleSubmitOffline = async () => {
   //   if (!validate()) return;
+  //   setLoading(true);
 
   //   const payload = {
-  //     mode: "new",
   //     event_id: eventId,
   //     pass_id: selectedPass?.id,
   //     pass_name: selectedPass?.name,
@@ -356,118 +290,201 @@ const selectedPassName = "Registration"
   //     year: form.year,
   //   };
 
-  //   // Step 1: Create Order on Laravel
-  //   const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(payload),
-  //   });
+  //   try {
+  //     const response = await fetch(`${import.meta.env.VITE_BASE_URL}/offline-booking`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(payload),
+  //     });
 
+  //     const data = await response.json();
 
-  //   const orderData = await orderRes.json();
-
-  //   if (orderRes.status === 422) {
-  //     let msg = "";
-
-  //     if (orderData.errors.email) {
-  //       msg = orderData.errors.email[0];
-  //     } else if (orderData.errors.mobile) {
-  //       msg = orderData.errors.mobile[0];
-  //     } else {
-  //       msg = "Validation failed";
-  //     }
-
-  //     setErrorPopup({ show: true, message: msg });
   //     setLoading(false);
-  //     return;
-  //   }
 
+  //     if (response.ok && data.success) {
+  //       console.log("data:", data)
+  //       setSuccessPopup(true);
 
-  //   if (!orderData.success) {
-  //     alert("Order creation failed!");
-  //     return;
-  //   }
+  //         const message =
+  //           `*Your Ticket Details*
 
-  //   // Step 2: Open Razorpay popup
-  //   const options = {
-  //     key: orderData.key,
-  //     amount: totalAmount * 100,
-  //     currency: "INR",
-  //     name: "NAVLAY 1.0",
-  //     description: selectedPass.name,
-  //     order_id: orderData.order_id,
+  // *Order ID:* ${data.orderId}
 
-  //     handler: async function (response) {
-  //       // Step 3: Verify payment
-  //       const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({
-  //           ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+  // *Name:* ${form.name}
+  // *Pass:* ${selectedPass?.name}
+  // *Quantity:* ${selectedPass?.qty}
+  // *Amount:* ₹${totalAmount}
+  // *Event:* ${event.title}
 
-  //           // also send booking data to Laravel
-  //           event_id: eventId,
-  //           pass_id: selectedPass?.id,
-  //           pass_name: selectedPass?.name,
-  //           qty: selectedPass?.qty,
-  //           amount: totalAmount,
-  //           name: form.name,
-  //           email: form.email,
-  //           mobile: form.mobile,
-  //           jnv_state: form.jnv_state,
-  //           jnv: form.jnv,
-  //           year: form.year,
-  //         }),
+  // Please pay cash at the ticket counter.
+  // Thank you!`;
 
-  //       });
-
-  //       const verifyData = await verifyRes.json();
-
-  //       if (verifyData.success) {
-  //         // alert("Payment successful!");
-
-  //         // Redirect or show success
-  //         setSuccessPopup(true);
-  //         const message = `
-  //           *Your Ticket Details*
-
-  //           *Order ID:* ${verifyData.orderId}
-
-  //           *Name:* ${form.name}
-  //           *Pass:* ${selectedPass?.name}
-  //           *Quantity:* ${selectedPass?.qty}
-  //           *Amount:* ₹${totalAmount}
-  //           *Event:* ${event.title}
-  //             Thank you for your booking!
-  //           `;
 
   //         const whatsappNumber = "91" + form.mobile;
+
   //         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-  //         const link = document.createElement("a");
-  //         link.href = whatsappURL;
-  //         link.target = "_blank";
-  //         link.rel = "noopener noreferrer";
+  //         window.location.href = whatsappURL;
+  //       return;
+  //     }
 
-  //         document.body.appendChild(link);
-  //         link.click();
-  //         document.body.removeChild(link);
+  //     if (response.status === 422) {
+  //       let message = "";
+
+  //       if (data.errors?.email) {
+  //         message = data.errors.email[0];
+  //       } else if (data.errors?.mobile) {
+  //         message = data.errors.mobile[0];
   //       } else {
-  //         alert("Payment failed!");
+  //         message = "Please check your input.";
   //       }
-  //     },
 
-  //     prefill: {
-  //       name: form.name,
-  //       email: form.email,
-  //       contact: form.mobile,
-  //     },
-  //     theme: { color: "#FFC107" },
-  //   };
+  //       setErrorPopup({ show: true, message });
+  //       return;
+  //     }
 
-  //   const rzp1 = new window.Razorpay(options);
-  //   rzp1.open();
+  //     setErrorPopup({
+  //       show: true,
+  //       message: data.message || "Something went wrong!"
+  //     });
+
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.error("Offline Booking Error:", error);
+  //     setErrorPopup({ show: true, message: "Failed to connect to server" });
+  //   }
   // };
+
+  const handleRazorpayPayment = async () => {
+    if (!validate()) return;
+
+    const payload = {
+      mode: "new",
+      event_id: eventId,
+      pass_id: selectedPass?.id,
+      pass_name: selectedPass?.name,
+      qty: selectedPass?.qty,
+      amount: totalAmount,
+      name: form.name,
+      email: form.email,
+      mobile: form.mobile,
+      jnv_state: form.jnv_state,
+      jnv: form.jnv,
+      year: form.year,
+    };
+
+    // Step 1: Create Order on Laravel
+    const orderRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+
+    const orderData = await orderRes.json();
+
+    if (orderRes.status === 422) {
+      let msg = "";
+
+      if (orderData.errors.email) {
+        msg = orderData.errors.email[0];
+      } else if (orderData.errors.mobile) {
+        msg = orderData.errors.mobile[0];
+      } else {
+        msg = "Validation failed";
+      }
+
+      setErrorPopup({ show: true, message: msg });
+      setLoading(false);
+      return;
+    }
+
+
+    if (!orderData.success) {
+      alert("Order creation failed!");
+      return;
+    }
+
+    // Step 2: Open Razorpay popup
+    const options = {
+      key: orderData.key,
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "NAVLAY 1.0",
+      description: selectedPass.name,
+      order_id: orderData.order_id,
+
+      handler: async function (response) {
+        // Step 3: Verify payment
+        const verifyRes = await fetch(`${import.meta.env.VITE_BASE_URL}/razorpay/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...response,   // razorpay_order_id, razorpay_payment_id, razorpay_signature
+
+            // also send booking data to Laravel
+            event_id: eventId,
+            pass_id: selectedPass?.id,
+            pass_name: selectedPass?.name,
+            qty: selectedPass?.qty,
+            amount: totalAmount,
+            name: form.name,
+            email: form.email,
+            mobile: form.mobile,
+            jnv_state: form.jnv_state,
+            jnv: form.jnv,
+            year: form.year,
+          }),
+
+        });
+
+        const verifyData = await verifyRes.json();
+
+        if (verifyData.success) {
+          // alert("Payment successful!");
+
+          // Redirect or show success
+          setSuccessPopup(true);
+          const message = `
+            *Your Ticket Details*
+
+            *Order ID:* ${verifyData.orderId}
+
+            *Name:* ${form.name}
+            *Pass:* ${selectedPass?.name}
+            *Quantity:* ${selectedPass?.qty}
+            *Amount:* ₹${totalAmount}
+            *Event:* ${event.title}
+              Thank you for your booking!
+            `;
+
+          const whatsappNumber = "91" + form.mobile;
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+          const link = document.createElement("a");
+          link.href = whatsappURL;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert("Payment failed!");
+        }
+      },
+
+      prefill: {
+        name: form.name,
+        email: form.email,
+        contact: form.mobile,
+      },
+      theme: { color: "#FFC107" },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
   // const handleSearchPass = async () => {
   //   setErrorMessage("");
@@ -632,7 +649,172 @@ const selectedPassName = "Registration"
               {event.description || "Event details will appear soon."}
             </p>
 
-<div>
+            <div className="mt-4">
+              <h4 className="fw-bold">🎟 Select Your Pass</h4>
+
+              <div className="mt-3 d-flex flex-column gap-3">
+                {passes.map((p) => (
+                  <div
+                    key={p.id}
+                    onClick={() => handleSelect(p.id)}
+                    className="d-flex justify-content-between align-items-center px-3 py-2 rounded-4 shadow-sm"
+                    style={{
+                      background:
+                        selectedPassId === p.id
+                          ? "rgba(255, 193, 7, 0.15)"
+                          : "rgba(255, 255, 255, 0.05)",
+                      border:
+                        selectedPassId === p.id
+                          ? "1px solid rgba(255,193,7,0.4)"
+                          : "1px solid rgba(255,255,255,0.1)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {/* <div className="d-flex justify-content-start">
+                      <input
+                        type="radio"
+                        checked={selectedPassId === p.id}
+                        onChange={() => handleSelect(p.id)}
+                        style={{ width: "20px", height: "20px" }}
+                      />
+
+                      <div className="ms-3">
+                        <h5 className="mb-0 fs-6 fs-md-5">{p.name}</h5>
+
+                        <small className="text-warning fw-bold">₹{p.price}</small>
+                      </div>
+                    </div> */}
+
+                    <div className="d-flex justify-content-between align-items-center w-100">
+                      <div className="d-flex align-items-start">
+                        <input
+                          type="radio"
+                          checked={selectedPassId === p.id}
+                          onChange={() => handleSelect(p.id)}
+                          style={{ width: "20px", height: "20px" }}
+                        />
+
+                        <div className="ms-3">
+                          <h5 className="mb-0 fs-6 fs-md-5">{p.name}</h5>
+                          <small className="text-warning fw-bold">₹{p.price}</small>
+                        </div>
+                      </div>
+
+                     {(p.id == 1 || p.id == 3) && <motion.span
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="px-3 py-1"
+                        style={{
+                          background: "#ff3b30",
+                          color: "white",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        🔥 Filling Fast
+                      </motion.span>}
+                    </div>
+
+
+                    {selectedPassId === p.id ? (
+                      <div className="d-flex align-items-center gap-2">
+                        <button
+                          className="btn btn-qty px-3"
+                          disabled={
+                            (p.id === 1 && p.qty <= 1) ||
+                            (p.id === 3 && p.qty <= 2) ||
+                            (p.id !== 1 && p.id !== 3 && p.qty <= 1)
+                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            decrement(p.id);
+                          }}
+                        >
+                          -
+                        </button>
+
+                        <span className="fs-5">{p.qty}</span>
+
+                        <button
+                          className="btn btn-qty px-3"
+                          disabled={
+                            (p.id === 1 && p.qty >= 2) ||    // Student pass max 2
+                            (p.id === 2 && p.qty >= 2) ||    // Adult pass max 2
+                            (p.id === 3 && p.qty >= 4) ||    // Family pass max 4
+                            (p.id === 4 && p.qty >= 2)       // Host pass max 2
+                          }
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            increment(p.id);
+                          }}
+                        >
+                          +
+                        </button>
+
+
+                      </div>
+                    ) : (
+                      <div style={{ width: "120px" }}></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT CHECKOUT */}
+          <div className="col-12 col-lg-5">
+            <motion.div
+              className={`p-4 rounded-4 shadow-lg ${showForm ? "" : "position-sticky"}`}
+              style={{
+                top: "20px",
+                background: "rgba(255, 255, 255, 0.07)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                backdropFilter: "blur(12px)",
+              }}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              <h4 className="fw-bold text-warning mb-3">Order Summary</h4>
+
+              {totalAmount === 0 ? (
+                <p>No pass selected.</p>
+              ) : (
+                <div className="d-flex justify-content-between border-bottom py-2">
+                  <span>
+                    {selectedPass.name} × {selectedPass.qty}
+                  </span>
+                  <span>₹{totalAmount}</span>
+                </div>
+              )}
+
+              <div className="d-flex justify-content-between mt-3 fs-4 fw-bold">
+                <span>Total:</span>
+                <span className="text-warning">₹{totalAmount}</span>
+              </div>
+
+              {!showForm && (
+                <>
+                  {/* <p className="text-warning fw-semibold mt-3 mb-1" style={{ fontSize: "14px" }}>
+                  <span className="text-danger">*</span> Pay Cash on Ticket collection
+                </p> */}
+
+                  <LoaderButton
+                    loading={loading}
+                    onClick={() => setShowForm(true)}
+                    className="btn btn-warning w-100 mt-4 fw-bold py-2"
+                    disabled={totalAmount === 0}
+                  >
+                    Proceed to Checkout
+                  </LoaderButton>
+                </>
+              )}
+
+              {showForm && (
+                <div>
                   <h4 className="mt-3 text-warning fw-bold mb-3">Your Details</h4>
                   <div className="mb-3">
                     <label className="text-light">Name *</label>
@@ -788,19 +970,68 @@ const selectedPassName = "Registration"
                   </div>
 
 
-                  <LoaderButton
+                  {/* <LoaderButton
                   loading={loading}
                   className="btn btn-warning w-100 fw-bold py-2 mt-2"
                   onClick={handleSubmitOffline}
                 >
                   Submit Details
-                </LoaderButton>
+                </LoaderButton> */}
+                  <LoaderButton
+                    loading={loading}
+                    className="btn btn-warning w-100 fw-bold py-2 mt-2"
+                    onClick={handleRazorpayPayment}
+                  >
+                    Pay Now
+                  </LoaderButton>
 
 
                 </div>
-          </div>
+              )}
 
+
+
+            </motion.div>
+            {/* TERMS & CONDITIONS */}
+
+
+
+          </div>
         </div>
+      </div>
+      <div
+        className="container mx-auto mb-8 row mt-4 p-3 rounded-4 text-white term-condition-add"
+        style={{
+          background: "rgba(255, 255, 255, 0.07)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          backdropFilter: "blur(10px)",
+        }}
+      >
+        <h5 className="fw-bold mb-2">Terms & Conditions</h5>
+
+        <ul className="ps-3 mb-0" style={{ lineHeight: "1.6" }}>
+          <li>Entry requires a valid ticket/pass and acceptance of these terms and ticket agent policies.</li>
+          <li>Security checks may be conducted, and admission may be refused at the Organiser’s discretion.</li>
+          <li>Please check tickets at the time of purchase — mistakes and lost tickets cannot be corrected or replaced.</li>
+          <li>Tickets are non-refundable and non-exchangeable. If government rules prevent attendance, tickets may be moved to a future event.</li>
+          <li>If you cannot attend due to unforeseen circumstances, a transfer may be considered at the Organiser’s discretion (no refunds).</li>
+          <li>Booking or transaction fees are strictly non-refundable.</li>
+          <li>If the Event is rescheduled or cancelled, tickets may be transferred or refunded (fees excluded).</li>
+          <li>The Organiser is not responsible for additional costs (travel, accommodation, etc.) arising from changes or cancellations.</li>
+          <li>Damaged, duplicated, or resold tickets are invalid. Ticket quantity limits may apply.</li>
+          <li>Event content, schedule, or lineup may change without eligibility for a refund.</li>
+          <li>Attendees must follow the Code of Conduct. Admission may be refused or individuals removed for safety concerns or inappropriate behaviour (including signs of infection).</li>
+          <li>The Organiser/venue is not liable for loss, injury, or damage unless legally proven negligent.</li>
+          <li>Outdoor events proceed in all weather conditions unless declared unsafe — no refunds for weather issues.</li>
+          <li>The Organiser is not responsible for loss or damage to personal belongings.</li>
+          <li>Visitors may be filmed or photographed for media, promotional, or security purposes.</li>
+          <li>Any content or items obtained at the Event must not be used for commercial purposes.</li>
+          <li>No animals allowed inside the venue, including pets.</li>
+          <li>Please check event timings, travel routes, and parking instructions — delays are not the Organiser’s responsibility.</li>
+          <li>Late entry into sessions is not guaranteed.</li>
+          <li>Recording inside performance areas is prohibited without written permission.</li>
+          <li>Alcohol is strictly prohibited inside the venue.</li>
+        </ul>
       </div>
       {successPopup && (
         <div
@@ -821,7 +1052,7 @@ const selectedPassName = "Registration"
           >
             <h3 className="text-success fw-bold mb-2">Success</h3>
             <p className="text-white fs-5">
-              Your registration is confirmed. <br />
+              Your pass is booked. <br />
               {/* <strong>Pay Cash on Ticket collection</strong> */}
             </p>
 
@@ -836,9 +1067,9 @@ const selectedPassName = "Registration"
                   className="btn btn-success w-100 fw-bold"
                   onClick={() => {
                     const msg = `
-I just registered for *${event.title}*!   
+I just booked my pass for *${event.title}*!   
 
-You can also register from here:  
+You can also book your pass here:  
  ${window.location.origin}
           `;
 
