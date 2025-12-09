@@ -1681,3 +1681,22 @@ a.navbar-brand.fw-bold.d-flex.align-items-center {
     right: 12px !important;
   }
 }
+
+
+.custom-modal-width {
+  width: 50%; /* default desktop width */
+}
+
+/* Tablet screens */
+@media (max-width: 992px) {
+  .custom-modal-width {
+    width: 70%;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 576px) {
+  .custom-modal-width {
+    width: 90%;
+  }
+}
