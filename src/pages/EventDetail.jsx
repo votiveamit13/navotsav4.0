@@ -827,7 +827,7 @@ const selectedPassName = "Registration"
 
             {/* SHARE MESSAGE */}
             <div className="mt-3">
-              <p className="text-warning fw-bold mb-2">Share with your friends,<br />that you're going to attend NAVLAY 1.0</p>
+              <p className="text-warning fw-bold mb-2">Share with your friends,<br />that you're going to attend NAVOTSAV 4.0</p>
 
               <div className="d-flex flex-column gap-2">
 

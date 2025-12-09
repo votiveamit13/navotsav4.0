@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
 
       {/* Page Header */}
       <h1 className="text-warning fw-bold mt-4 mb-4" style={{ fontSize: "28px" }}>
-        Privacy Policy – NAVLAY 1.0
+        Privacy Policy – NAVOTSAV 4.0
       </h1>
       {/* <p className="text-muted mb-4">Last Updated: 15 January 2025</p> */}
 
@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
         <section className="mb-4">
           <h2 className="text-warning fs-3 fw-semibold mb-2">1. Introduction</h2>
           <p className="text-secondary">
-            Welcome to NAVLAY 1.0, organized by MAAN Organization.  
+            Welcome to NAVOTSAV 4.0, organized by MAAN Organization.  
             This Privacy Policy explains how we collect, use, and protect your information  
             when registering, booking passes, or interacting with our website.
           </p>
@@ -163,7 +163,7 @@ export default function PrivacyPolicy() {
 
                 </div>
               <p className="text-secondary small mb-0">
-                © 2025 NAVLAY 1.0. All rights reserved.
+                © 2025 NAVOTSAV 4.0. All rights reserved.
               </p>
             </div>
           </div>

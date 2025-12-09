@@ -57,12 +57,12 @@ const Header = () => {
             <div className="marquee-track">
               <span className="marquee-text">
                 <span className="red">NA</span>
-                <span className="green">VL</span>
-                <span className="yellow">AY</span>&nbsp;
-                <span className="blue">1.0</span>
+                <span className="green">VO</span>
+                <span className="yellow">TS</span>
+                <span className="blue">AV</span>
                 &nbsp;
                 <span className="gradient-text">
-                  - A grand fusion of comedy, storytelling, music & electrifying DJ night. For any query contact at: +91 9589847113
+                 4.0 - A grand fusion of comedy, storytelling, music & electrifying DJ night. For any query contact at: +91 9589847113
                 </span>
               </span>
             </div>

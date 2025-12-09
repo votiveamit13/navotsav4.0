@@ -419,7 +419,8 @@ export default function HomePage() {
               textShadow: "0 0 40px rgba(255, 200, 0, 0.3)",
             }}
           >
-            NAVLAY 1.0
+            {/* NAVLAY 1.0 */}
+            NAVOTSAV 4.0
           </motion.h1>
 
           <p className="fs-4 text-secondary">
@@ -612,7 +613,7 @@ export default function HomePage() {
 
       <section className="container text-center py-5">
         <h2 className="fw-bold text-warning mb-4 display-0 display-md-6">
-          Why Attend NAVLAY 1.0?
+          Why Attend NAVOTSAV 4.0?
         </h2>
 
         <p className="text-secondary mb-5 fs-5">
@@ -654,7 +655,7 @@ export default function HomePage() {
 
       <section className="py-5 text-center" style={{ background: "#080808" }}>
         <h2 className="text-warning fw-bold mb-4 display-0 display-md-6">
-          Countdown to NAVLAY 1.0
+          Countdown to NAVOTSAV 4.0
         </h2>
 
 
@@ -753,7 +754,7 @@ export default function HomePage() {
 
               </div>
               <p className="text-secondary small mb-0">
-                © 2025 NAVLAY 1.0. All rights reserved.
+                © 2025 NAVOTSAV 4.0. All rights reserved.
               </p>
             </div>
           </div>
